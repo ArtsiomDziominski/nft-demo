@@ -64,7 +64,8 @@ async function getTotalSupply() {
   if (!contract) {
     contract = getContract();
   }
-  await contract.methods.totalSupply().call().then((total) => {
+  await contract.methods.totalSupply().call()
+      .then((total) => {
     totalSupply.value = total;
   });
 }
@@ -80,7 +81,7 @@ async function mint() {
   try {
     if (await connectMetamask() && process.client) {
       const walletCurrent = await getAddressWallet();
-      await contract.methods.mint(walletCurrent, 1).send({from: walletCurrent, value: "1000000000000000",});
+      await contract.methods.mint(walletCurrent, 1).send({from: walletCurrent, value: "1000000000000000"});
     }
   } catch (e) {
     loaderBtn.value = false;

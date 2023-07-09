@@ -1,6 +1,6 @@
 import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
-import {ADDRESS} from "../const/mint";
+import {ABI, ADDRESS} from "../const/mint";
 import {chain} from "../config";
 
 export default function wallet() {
@@ -13,12 +13,20 @@ export default function wallet() {
         const walletEthereum = (window as any).ethereum;
         const metamask = await walletEthereum.request({method: 'eth_requestAccounts'})
         user.wallet = metamask[0];
-        sessionStorage.setItem("address", user.wallet);
+        sessionStorage.setItem("address", user.wallet ? user.wallet : '');
         if (await getChainId() !== chain.chainId) {
             await switchNetwork();
         }
         await getUserNFT();
         return metamask[0];
+    }
+
+    async function getAddressWallet() {
+        const ethereum = (window as any).ethereum;
+        const web3 = new Web3(ethereum);
+        const accounts = await web3.eth.getAccounts();
+        user.wallet = accounts.length ? accounts[0] : null;
+        return user.wallet;
     }
 
     function getChainId() {
@@ -76,8 +84,11 @@ export default function wallet() {
     async function getUserNFT(): Promise<number> {
         const ethereum = (window as any).ethereum;
         const web3 = new Web3(ethereum);
-        user.countNFT = Number(await web3.eth.getBalance(ADDRESS)) / 100000000000000;
-        return user.countNFT;
+        const tokenInst = new web3.eth.Contract(ABI, ADDRESS);
+        const walletAddress = await getAddressWallet();
+        // @ts-ignore
+        user.countNFT = Number(await tokenInst.methods.balanceOf(walletAddress).call());
+        return Number(user.countNFT);
     }
 
     return {connectMetamask, getUserNFT, checkConnect}
