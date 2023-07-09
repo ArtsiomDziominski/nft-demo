@@ -2,39 +2,39 @@
   <div class="photo-grid">
     <div class="grid-column" >
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
+      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
+      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
+      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
     </div>
     <div class="grid-column" >
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
+      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
-      <img src="~/assets/images/nft.webp" alt="image example">
+      <img src="~/assets/images/nft-2.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
       <img src="~/assets/images/nft.webp" alt="image example">
     </div>
