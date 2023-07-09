@@ -1,0 +1,1 @@
+export const etherScanURL: string = 'https://api.etherscan.io';

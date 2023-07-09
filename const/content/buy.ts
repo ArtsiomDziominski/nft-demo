@@ -1,0 +1,2 @@
+export const title: string = 'Truck NFT';
+export const description: string = 'Welcome to our passive income project in the world of cryptocurrencies! We are excited to offer you a unique opportunity to earn money by purchasing our NFTs and receiving weekly payments.';
