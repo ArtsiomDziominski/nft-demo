@@ -22,7 +22,6 @@ import MainFooter from "~/components/footer/MainFooter.vue";
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding: 0 20px;
 
   a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
