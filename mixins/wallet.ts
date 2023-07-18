@@ -9,16 +9,27 @@ export default function wallet() {
 
     const timeGetNFT: number = 0;
 
-    async function connectMetamask(): Promise<string> {
-        const walletEthereum = (window as any).ethereum;
-        const metamask = await walletEthereum.request({method: 'eth_requestAccounts'})
-        user.wallet = metamask[0];
+    async function connectMetamask() {
+        let someError: boolean = false;
+        const walletEthereum = await (window as any).ethereum;
+        // const metamask = await walletEthereum.request({method: 'eth_requestAccounts'})
+        const metamask = await walletEthereum.request({
+            method: 'wallet_requestPermissions',
+            "params": [{"eth_accounts": {}}]
+        })
+            .catch(() => {
+                someError = true;
+            })
+
+        if (someError) return;
+        user.wallet = metamask[0].caveats[0].value[0];
         sessionStorage.setItem("address", user.wallet ? user.wallet : '');
-        if (await getChainId() !== chain.chainId) {
+        if (getChainId() !== chain.chainId) {
             await switchNetwork();
         }
-        await getUserNFT();
-        return metamask[0];
+
+        // await getUserNFT();
+        // return metamask[0];
     }
 
     async function getAddressWallet() {

@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
 import {userStore} from "../store/userStore";
-import wallet from "../mixins/wallet";
+import wallet from "~/mixins/wallet";
 import {BUY_NFT} from "../const/href";
 
 const store = userStore();
@@ -32,7 +32,7 @@ const {user} = store;
 const {getUserNFT, connectMetamask} = wallet();
 
 onMounted(async () => {
-  await getUserNFT()
+  // await getUserNFT()
 });
 
 function connectWallet() {
