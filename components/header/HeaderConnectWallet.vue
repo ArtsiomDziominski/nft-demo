@@ -45,17 +45,16 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {CONNECT_WALLET} from "../../const/const";
-import wallet from "../../mixins/wallet";
-import {userStore} from "../../store/userStore";
-import {connectWalletHeaderButtons} from "../../const/buttons";
-
+import {CONNECT_WALLET} from "~/const/const";
+import wallet from "~/mixins/wallet";
+import {userStore} from "~/store/userStore";
+import {connectWalletHeaderButtons} from "~/const/buttons";
 
 const {connectMetamask} = wallet();
 const store = userStore();
 const {user} = store;
 
-const loaderConnectBtn = ref(false)
+let loaderConnectBtn = ref<boolean>(false)
 
 async function connectWallet() {
   if (user.wallet) {
