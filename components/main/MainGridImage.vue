@@ -47,14 +47,19 @@
 
 <style scoped lang="scss">
 .photo-grid {
+  position: absolute;
+  top: 0;
+  left: 10%;
   display: flex;
-  gap: 100px;
+  gap: 30px;
+  height: 100vh;
+  max-height: 100vh;
+  z-index: -1;
 
   .grid-column {
     display: flex;
     flex-direction: column;
     gap: 25px;
-    width: 25%;
     animation: autoscroll 100s linear 0s infinite forwards;
     opacity: 0.2;
 

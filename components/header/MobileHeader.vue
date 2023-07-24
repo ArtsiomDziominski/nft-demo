@@ -1,27 +1,15 @@
 <template>
-  <div class="wrapper-mobile-header">
-    <div class="logo">
-      <NuxtLink to="/">Logo</NuxtLink>
-      <v-chip class="chip" size="x-small" color="warning">
-        <v-icon class="mr-1" size="x-small" icon="mdi-alert-circle"></v-icon>
-        Testnet
-      </v-chip>
-    </div>
-
+  <div class="mobile-header">
     <v-menu>
       <template v-slot:activator="{ props }">
-        <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+        <v-btn class="button" icon="mdi-dots-vertical" v-bind="props"></v-btn>
       </template>
 
-      <v-list>
+      <v-list bg-color="#658d1b" >
         <v-list-item
-            v-for="(button, index) in headerButtons"
-            :key="index"
-            :value="index"
+            v-for="button in headerButtons" @click="routeTo(button.to)"
         >
-          <v-list-item-title>
-            <NuxtLink :to="button.to" class="buttons"> {{ button.name }}</NuxtLink>
-          </v-list-item-title>
+          <NuxtLink to="button.to" class="buttons"> {{ button.name }}</NuxtLink>
         </v-list-item>
         <HeaderConnectWallet/>
       </v-list>
@@ -32,28 +20,35 @@
 <script setup lang="ts">
 import {headerButtons} from "~/const/buttons";
 import HeaderConnectWallet from "~/components/header/HeaderConnectWallet.vue";
+import {useRouter} from "nuxt/app";
 
+const router = useRouter();
+
+function routeTo(route: string) {
+  router.push({path: route});
+}
 </script>
 
 <style lang="scss">
 
-.wrapper-mobile-header {
+.mobile-header {
   display: flex;
   justify-content: space-between;
+  color: var(--text-color);
 
-  .logo {
-    display: flex;
-    align-items: center;
-
-    .chip {
-      margin-left: 10px;
-      transform: translateY(-10px);
-      font-size: 10px;
-    }
+  .button {
+    background-color: var(--main-green);
+    color: var(--text-color);
   }
 }
 
-.buttons:link {
-  text-decoration: none;
+.buttons {
+  color: var(--text-color);
+
+  &:link {
+    text-decoration: none;
+  }
 }
+
+
 </style>

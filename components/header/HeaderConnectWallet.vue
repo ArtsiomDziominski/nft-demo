@@ -10,7 +10,6 @@
     </v-btn>
     <v-menu
         v-else
-        open-on-hover=""
         color="primary"
     >
       <template v-slot:activator="{ props }">

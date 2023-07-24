@@ -1,17 +1,16 @@
 <template>
-  <div class="main">
+  <section>
     <MainBlock/>
-
-  </div>
+    <FeaturesBlock/>
+  </section>
 </template>
 
 <script setup lang="ts">
-
+import MainBlock from "~/components/main/MainBlock"
+import FeaturesBlock from "~/components/main/FeaturesBlock.vue";
 </script>
 
 <style scoped lang="scss">
-.main {
-  position: relative;
-}
+
 
 </style>
