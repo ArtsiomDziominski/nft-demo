@@ -10,9 +10,11 @@ $card-bg-secondary: #202124;
 $border-stroke-on-card: #ffffff1a;
 $background-minting: rgba(187, 184, 184, 0.24);
 $blue-light: #2196F3;
+$green:#658d1b;
 
 :root {
   --text-color: #{$text};
+  --main-green: #{$green};
   --background: #{$background};
   --background-card: #{$card-bg-primary};
   --background-card-collection: #{$card-bg-secondary};
