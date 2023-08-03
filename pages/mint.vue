@@ -25,9 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import {ABI, ADDRESS} from "../const/mint";
+import CardNFT from "~/components/CardNFT"
+import MLoader from "~/components/MLoader"
+import {ABI, ADDRESS} from "~/const/mint";
 import {Web3} from "web3";
-import {userStore} from "../store/userStore";
+import {userStore} from "~/store/userStore";
 import {onMounted, Ref, ref, UnwrapRef} from "vue";
 import wallet from "~/mixins/wallet";
 
@@ -78,13 +80,10 @@ async function getAddressWallet() {
 
 async function mint() {
   loaderBtn.value = true;
-  try {
-    if (await connectMetamask() && process.client) {
-      const walletCurrent = await getAddressWallet();
-      await contract.methods.mint(walletCurrent, 1).send({from: walletCurrent, value: "1000000000000000"});
-    }
-  } catch (e) {
-    loaderBtn.value = false;
+  if (await connectMetamask() && process.client) {
+    const walletCurrent = await getAddressWallet();
+    await contract.methods.mint(walletCurrent, 1).send({from: walletCurrent, value: "1000000000000000"})
+        .catch(() => loaderBtn.value = false)
   }
   setTimeout(() => getTotalSupply(), 5000);
   loaderBtn.value = false;
