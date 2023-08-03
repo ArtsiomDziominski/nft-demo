@@ -29,7 +29,7 @@ export default function wallet() {
         }
 
         // await getUserNFT();
-        // return metamask[0];
+        return metamask[0];
     }
 
     async function getAddressWallet() {
