@@ -66,7 +66,7 @@ async function getTotalSupply() {
   if (!contract) {
     contract = getContract();
   }
-  await contract.methods.totalSupply().call()
+  await contract.methods.totalNFT().call()
       .then((total) => {
     totalSupply.value = total;
   });
