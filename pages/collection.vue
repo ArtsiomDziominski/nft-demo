@@ -23,9 +23,9 @@
 
 <script setup lang="ts">
 import {onMounted} from "vue";
-import {userStore} from "../store/userStore";
+import {userStore} from "~/store/userStore";
 import wallet from "~/mixins/wallet";
-import {BUY_NFT} from "../const/href";
+import {BUY_NFT} from "~/const/href";
 
 const store = userStore();
 const {user} = store;
