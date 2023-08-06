@@ -3,11 +3,46 @@ import {Ref, ref} from "vue";
 import {reactive} from "@vue/reactivity";
 
 export const userStore = defineStore('userStore', () => {
-    const user: Ref<{ wallet: string | null, countNFT: number | null, isConnectWallet: boolean }> = ref({
-        wallet: '',
-        countNFT: null,
-        isConnectWallet: false
-    });
-    const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0})
-    return {user, userBase}
+  let user: Ref<{ wallet: string | null, countNFT: number | null, isConnectWallet: boolean }> = ref({
+    wallet: null,
+    countNFT: null,
+    isConnectWallet: false
+  });
+
+  let usersNFT: Ref<[{ id: number, isStaked: boolean }] | []> = ref([]);
+
+  const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0});
+
+  function changeWallet(address: string):void {
+    user.value.wallet = address;
+  }
+
+  function changeCountNFT(amount: number):void {
+    user.value.countNFT = amount
+  }
+
+  function addUsersNFT(nft: { id: number, isStaked: boolean }):void {
+    // @ts-ignore
+    usersNFT.value.push(nft)
+  }
+
+  function cleanUsersNFT():void {
+    usersNFT.value = [];
+  }
+
+  function cleanUserStore():void {
+    user.value = {
+      wallet: null,
+      countNFT: null,
+      isConnectWallet: false
+    }
+    usersNFT.value = [];
+  }
+
+  return {
+    user, changeWallet, changeCountNFT,
+    userBase,
+    usersNFT, addUsersNFT, cleanUsersNFT,
+    cleanUserStore
+  }
 })
