@@ -3,13 +3,13 @@
     <CardNFT :is-minting="true">
       <template #button>
         <div class="count">
-          <p v-if="totalSupply">
-            {{ totalSupply }}/10000
+          <p v-if="totalNFT !== null">
+            {{ totalNFT }} / {{ totalSupply }}
           </p>
           <MLoader v-else size="28"/>
-          <p style="font-size: 14px; margin-top: 10px;">Price: 0.001 MATIC</p>
+          <p v-if="costNFT" style="font-size: 14px; margin-top: 10px;">Price: {{costNFT}} MATIC</p>
         </div>
-        <v-btn :disabled="!totalSupply" @click="mint" color="primary" :loading="loaderBtn">
+        <v-btn :disabled="totalNFT === null" @click="mint" color="primary" :loading="loaderBtn">
           Mint
         </v-btn>
       </template>
@@ -41,7 +41,10 @@ let ethereum = null;
 let web3 = null;
 let account: Ref<null | string> = ref(null);
 let contract = null;
-let totalSupply: Ref<null | string | number> = ref(null);
+let totalNFT: Ref<null | string | number> = ref(null);
+let totalSupply: Ref<UnwrapRef<number | null>> = ref(null);
+let costNFT: Ref<UnwrapRef<number>> = ref(0);
+let mintAmount: Ref<UnwrapRef<number>> = ref(1);
 let loader: Ref<UnwrapRef<boolean>> = ref(true);
 let loaderBtn: Ref<UnwrapRef<boolean>> = ref(false);
 
@@ -52,9 +55,11 @@ onMounted(async () => {
   }
   if (web3) {
     contract = getContract();
+    await getTotalSupply();
+    await getCostNFT();
     // await getAddressWallet();
   }
-  await getTotalSupply();
+  await getTotal();
 })
 
 function getContract() {
@@ -62,14 +67,37 @@ function getContract() {
   return new web3.eth.Contract(ABI, ADDRESS);
 }
 
+async function getTotal() {
+  if (!contract) {
+    contract = getContract();
+  }
+  await contract.methods.totalNFT()
+      .call()
+      .then((total) => {
+      totalNFT.value = Number(total);
+  });
+}
+
 async function getTotalSupply() {
   if (!contract) {
     contract = getContract();
   }
-  await contract.methods.totalNFT().call()
+  await contract.methods.maxSupplyNFT()
+      .call()
       .then((total) => {
-    totalSupply.value = total;
-  });
+        totalSupply.value = total;
+      });
+}
+
+async function getCostNFT() {
+  if (!contract) {
+    contract = getContract();
+  }
+  await contract.methods.costNFT()
+      .call()
+      .then((cost) => {
+        costNFT.value = web3.utils.fromWei(cost, 'ether');
+      });
 }
 
 async function getAddressWallet() {
@@ -82,10 +110,12 @@ async function mint() {
   loaderBtn.value = true;
   if (await connectMetamask() && process.client) {
     const walletCurrent = await getAddressWallet();
-    await contract.methods.mint(walletCurrent, 1).send({from: walletCurrent, value: "1000000000000000"})
+    await contract.methods.mint(mintAmount.value)
+        .send({from: walletCurrent, value: "1000000000000000"})
+        .then(() => totalNFT.value += mintAmount.value)
         .catch(() => loaderBtn.value = false)
   }
-  setTimeout(() => getTotalSupply(), 5000);
+  setTimeout(() => getTotal(), 5000);
   loaderBtn.value = false;
 }
 </script>

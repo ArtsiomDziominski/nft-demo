@@ -9,7 +9,7 @@ export default function requestsNFT() {
   let contract: any = null;
   let web3: any = null;
   let ethereum: any = null;
-  let totalSupply: Ref<number | null> = ref(null);
+  let totalNFT: Ref<number | null> = ref(null);
 
   onMounted(async () => {
     // @ts-ignore
@@ -32,7 +32,7 @@ export default function requestsNFT() {
     contract = getContract()
     const walletAddress = await getAddressWallet();
     changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
-    await getTotalSupply()
+    await getTotalNFT()
     await getNftList();
     await getNftListStake()
     return Number(user.countNFT);
@@ -47,15 +47,15 @@ export default function requestsNFT() {
     return user.wallet;
   }
 
-  async function getTotalSupply(): Promise<void> {
+  async function getTotalNFT(): Promise<void> {
     await contract.methods.totalNFT().call()
       .then((total: any) => {
-        totalSupply.value = Number(total);
+        totalNFT.value = Number(total);
       });
   }
 
   async function getNftList(): Promise<void> {
-    for (let i = 1; i <= totalSupply.value!; i++) {
+    for (let i = 1; i <= totalNFT.value!; i++) {
       await contract.methods.ownerOf(String(i)).call()
         .then((ownerAddress: string) => {
           if (ownerAddress.toLowerCase() === user.wallet!.toLowerCase()) addUsersNFT({id: i, isStaked: false})
@@ -64,7 +64,7 @@ export default function requestsNFT() {
   }
 
   async function getNftListStake(): Promise<void> {
-    for (let i = 1; i <= totalSupply.value!; i++) {
+    for (let i = 1; i <= totalNFT.value!; i++) {
       await contract.methods.nftOwnerStake(String(i)).call()
         .then((ownerAddressStake: string) => {
           if (ownerAddressStake.toLowerCase() === user.wallet!.toLowerCase()) addUsersNFT({id: i, isStaked: true})
