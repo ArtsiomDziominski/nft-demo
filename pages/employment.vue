@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 56px)">
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; min-height: calc(100vh - 56px)">
     <CardNFT :is-minting="true" v-for="nft in usersNFT" :key="nft">
       <template #button>
         <div class="count">
