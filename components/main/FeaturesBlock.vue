@@ -1,45 +1,46 @@
 <template>
   <section>
     <div class="wrapper-advantages">
-      <div class="description">
-        <h2>
-          <span>Why</span>
-          <span>we?</span>
-        </h2>
 
-        <p>We are a team of crypto enthusiasts who have found how to improve trading tools, we have finance meets the
-          imagination: no routine, only progress!</p>
-      </div>
+        <div class="description" v-if="isShowTitle" data-aos="fade-right">
+          <h2>
+            <span>Why</span>
+            <span>we?</span>
+          </h2>
 
-      <div class="advantages">
-        <div class="item corner-left">
+          <p>We are a team of crypto enthusiasts who have found how to improve trading tools, we have finance meets the
+            imagination: no routine, only progress!</p>
+        </div>
+
+      <div class="advantages" >
+        <div id="#example-anchor" class="item corner-left" data-aos="fade-left" data-aos-delay="100">
           <img src="~/assets/images/main-features/launch.svg" alt="">
           <h3>Automation</h3>
           <p> Bots can work 24/7, monitor markets, and react to real-time changes.</p>
         </div>
-        <div class="item gradient-top">
+        <div class="item gradient-top" data-aos="fade-left" data-aos-delay="200">
           <img src="~/assets/images/main-features/robot.svg" alt="">
           <h3>Elimination of emotions</h3>
           <p>Trading decisions made by people are often influenced by emotions such as fear, greed or euphoria. Bots act
             strictly in accordance with the rules laid down in them.</p>
         </div>
-        <div class="item corner-right">
+        <div class="item corner-right" data-aos="fade-left" data-aos-delay="300">
           <img src="~/assets/images/main-features/power.svg" alt="">
           <h3>Speed</h3>
           <p>Bots are capable of rapidly analyzing large volumes of data and making instantaneous decisions.</p>
         </div>
-        <div class="item corner-bottom-left">
+        <div class="item corner-bottom-left" data-aos="fade-left" data-aos-delay="300">
           <img src="~/assets/images/main-features/response.svg" alt="">
           <h3>Instant Response</h3>
           <p>Some trading bots are equipped with news and social media analytics. This allows them to quickly respond to
             events.</p>
         </div>
-        <div class="item gradient-bottom">
+        <div class="item gradient-bottom" data-aos="fade-left" data-aos-delay="400">
           <img src="~/assets/images/main-features/time.svg" alt="">
           <h3>Claim 24/7</h3>
           <p>Ability to claim rewards at any time</p>
         </div>
-        <div class="item corner-bottom-right">
+        <div class="item corner-bottom-right" data-aos="fade-left" data-aos-delay="500">
           <img src="~/assets/images/main-features/lock.svg" alt="">
           <h3>Lock-up 2 weeks</h3>
           <p>After you send the bot to work, the ability to sell NFTs is blocked for 2 weeks</p>
@@ -50,8 +51,13 @@
 </template>
 
 <script setup lang="ts">
+import {ref} from "vue";
 
+let isShowTitle = ref(false);
 
+setTimeout(() => {
+  isShowTitle.value = true;
+}, 500)
 </script>
 
 <style scoped lang="scss">
@@ -66,6 +72,19 @@ section {
     justify-content: space-between;
     width: 100%;
     max-width: 1440px;
+
+    .title-enter-from {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    .title-enter-to {
+      transform: translateX(0);
+    }
+
+    .title-enter-active {
+      transition: all 2s;
+    }
 
     .description {
       width: 25%;
@@ -121,17 +140,17 @@ section {
 
       .corner-left {
         background: linear-gradient(166deg, rgba(31, 33, 29, 1) 53%, rgba(59, 66, 50, 1) 84%, rgba(76, 97, 41, 1) 95%, rgba(89, 120, 34, 1) 100%);
-        margin-bottom: 30px;
+        margin-bottom: 5%;
       }
 
       .gradient-top {
         background: linear-gradient(180deg, rgba(31, 33, 29, 1) 53%, rgba(59, 66, 50, 1) 84%, rgba(76, 97, 41, 1) 95%, rgba(89, 120, 34, 1) 100%);
-        margin-bottom: 30px;
+        margin-bottom: 5%;
       }
 
       .corner-right {
         background: linear-gradient(194deg, rgba(31, 33, 29, 1) 53%, rgba(59, 66, 50, 1) 84%, rgba(76, 97, 41, 1) 95%, rgba(89, 120, 34, 1) 100%);
-        margin-bottom: 30px;
+        margin-bottom: 5%;
       }
 
       .corner-bottom-left {
@@ -148,4 +167,6 @@ section {
     }
   }
 }
+
+
 </style>

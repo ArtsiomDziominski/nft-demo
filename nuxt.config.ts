@@ -14,5 +14,6 @@ export default defineNuxtConfig({
     },
     pinia: {
         autoImports: ['defineStore', 'acceptHMRUpdate'],
-    }
+    },
+    plugins: [{ src: "@/plugins/aos", ssr: false, mode: "client" }],
 })
