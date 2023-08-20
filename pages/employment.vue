@@ -5,7 +5,7 @@
         <div class="count">
           <!--        <p>Earn: {{ timer }}</p>-->
           <!--        <MLoader v-else size="28"/>-->
-          <p>+0.0000000004 MATIC</p>
+          <p>+{{ rewardSecondUSDT }}USDT</p>
         </div>
         <v-btn v-if="!nft.isStaked" @click="stake(nft.id)" color="primary">
           stake {{ nft.id }}
@@ -31,7 +31,7 @@ import wallet from "~/mixins/wallet";
 import requestsNFT from "~/mixins/requestsNFT";
 
 const {connectMetamask} = wallet();
-const {getUserNFT, stake, unStake, claimRewards} = requestsNFT();
+const {getUserNFT, stake, unStake, claimRewards, rewardSecond} = requestsNFT();
 const store = userStore();
 const {user} = store;
 const {usersNFT} = storeToRefs(store)
@@ -41,11 +41,13 @@ let web3 = null;
 let contract = null;
 let balance: Ref<number> = ref(0);
 let balanceStake: Ref<number> = ref(0);
+let rewardSecondUSDT: Ref<number> = ref(0);
 
 let timer = ref(0);
 
 onMounted(async () => {
-  getUserNFT()
+  getUserNFT();
+  rewardSecond().then((res)=> rewardSecondUSDT.value = res);
 })
 
 // const getBalance = async () => {

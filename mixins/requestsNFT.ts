@@ -91,6 +91,17 @@ export default function requestsNFT() {
       .then((response: any) => console.log(response))
   }
 
-  return {getUserNFT, stake, unStake, claimRewards}
+  async function rewardSecond() {
+    let reward = 0;
+    await contract.methods
+        .rewardSecond()
+        .call()
+        .then((response: any) => {
+          reward = Number(response);
+        });
+    return reward / 1000000;
+  }
+
+  return {getUserNFT, stake, unStake, claimRewards, rewardSecond}
 
 }
