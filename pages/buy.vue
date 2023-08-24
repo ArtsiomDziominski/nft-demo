@@ -9,7 +9,7 @@
         <!--            Buy 1 ETH-->
         <!--          </v-btn>-->
         <!--        </a>-->
-        <NuxtLink to="https://testnets.opensea.io/collection/truck-testnet" target="_blank">
+        <NuxtLink to="https://testnets.opensea.io/collection/testtrucknft-23" target="_blank">
           <v-btn class="card__button" color="primary">
             BUY
           </v-btn>
