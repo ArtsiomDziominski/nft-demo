@@ -6,9 +6,8 @@
       <div></div>
       <span>Minting now</span>
     </div>
-    <slot name="button" class="card-nft__button">
-
-    </slot>
+    <slot name="rewards" class="card-nft__rewards" />
+    <slot name="button" class="card-nft__button" />
   </v-card>
 </template>
 
@@ -27,6 +26,7 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 6px;
   padding: 20px;
   background: var(--background-card);
 
@@ -61,6 +61,10 @@ const props = defineProps({
       background: rgb(52, 199, 123);
       animation: 3s ease 0s infinite normal none running pulse;
     }
+  }
+
+  &__rewards {
+    margin: 10px;
   }
 
   &__button {
