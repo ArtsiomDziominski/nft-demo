@@ -9,7 +9,7 @@
         <v-list-item
             v-for="button in headerButtons" @click="routeTo(button.to)"
         >
-          <NuxtLink to="button.to" class="buttons"> {{ button.name }}</NuxtLink>
+          <NuxtLink :to="button.to" class="buttons"> {{ button.name }}</NuxtLink>
         </v-list-item>
         <HeaderConnectWallet/>
       </v-list>
