@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import {Ref, ref} from "vue";
 import {reactive} from "@vue/reactivity";
+import {IUserNFT} from "../types/types";
 
 export const userStore = defineStore('userStore', () => {
   let user: Ref<{ wallet: string | null, countNFT: number | null, isConnectWallet: boolean }> = ref({
@@ -9,7 +10,7 @@ export const userStore = defineStore('userStore', () => {
     isConnectWallet: false
   });
 
-  let usersNFT: Ref<[{ id: number, isStaked: boolean }] | []> = ref([]);
+  let usersNFT: Ref<IUserNFT[]> = ref([]);
 
   const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0});
 

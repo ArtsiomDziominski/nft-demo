@@ -24,3 +24,9 @@ export interface IUserBase {
     histories: IHistory[];
     registered: boolean;
 }
+
+export interface IUserNFT {
+    id: number;
+    isStaked: boolean;
+    rewards: number
+}
