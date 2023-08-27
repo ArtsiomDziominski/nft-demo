@@ -2,14 +2,14 @@
   <div class="wrapper">
     <h1 class="title">{{ title }}</h1>
     <h2 class="description">{{ description }}</h2>
-    <CardNFT class="card" :is-minting="true">
+    <CardNFT class="card" :is-minting="false">
       <template #button>
         <!--        <a :href="BUY_NFT" target="_blank">-->
         <!--          <v-btn class="card__button">-->
         <!--            Buy 1 ETH-->
         <!--          </v-btn>-->
         <!--        </a>-->
-        <NuxtLink to="https://testnets.opensea.io/collection/testtrucknft-23" target="_blank">
+        <NuxtLink to="https://testnets.opensea.io/collection/testtrucknft-27" target="_blank">
           <v-btn class="card__button" color="primary">
             BUY
           </v-btn>

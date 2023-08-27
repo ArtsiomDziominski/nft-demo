@@ -4,7 +4,7 @@
       <template #button>
         <div class="count">
           <p v-if="totalNFT !== null">
-            {{ totalNFT }} / {{ totalSupply }}
+            {{ totalNFT }} out of {{ totalSupply }}
           </p>
           <MLoader v-else size="28"/>
           <p v-if="costNFT" style="font-size: 14px; margin-top: 10px;">Price: {{costNFT}} MATIC</p>
