@@ -1,5 +1,8 @@
 <template>
-  <CardNFT class="employment__card" :is-minting="false" :key="nft.id">
+  <CardNFT class="employment__card" :is-minting="false" :key="nft.id" :img="imgNFT">
+    <template #title>
+      <p class="employment__title">{{NFTParams.name}}</p>
+    </template>
     <template #rewards v-if="nft.isStaked">
       <div class="card">
         <p :class="`card__count card__count_${num}`" v-for="num in 4">+ {{ rewardSecondUSDT }}</p>
@@ -8,36 +11,53 @@
     </template>
     <template #button>
       <v-btn v-if="!nft.isStaked" @click="stake(nft.id)" color="primary">
-        stake {{ nft.id }}
+        stake {{nft.id }}
       </v-btn>
       <v-btn v-if="nft.isStaked" @click="unStake(nft.id)" color="primary">
-        UnStake {{ nft.id }}
+        UnStake {{nft.id }}
       </v-btn>
       <v-btn v-if="nft.isStaked" @click="claimRewardsNFT(nft.id)" color="primary">
         Claim Rewards
       </v-btn>
     </template>
+    <template #tooltip>
+      <p>{{NFTParams.name}}</p>
+      <p>{{NFTParams.description}}</p>
+      <p v-for="attributes in NFTParams.attributes">{{attributes.trait_type}}: {{attributes.value}}</p>
+      <p>Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
+    </template>
   </CardNFT>
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted, Ref, ref, UnwrapRef} from "vue";
+import {defineProps, onMounted, reactive, Ref, ref, UnwrapRef} from "vue";
 import requestsNFT from "~/mixins/requestsNFT";
 import CardNFT from "~/components/CardNFT";
+import {ImageNFT, ImageNFTStorage, NAME} from "../../const/const";
+import requests from "../../mixins/requests";
+import {INFTParams} from "../../types/types";
 
 const {getRewards, setContract, setWeb3, stake, unStake, claimRewards} = requestsNFT();
+const {getParamsNFT} = requests();
+
 const props = defineProps({
   nft: Object,
   rewardSecond: Number
 })
 
-
 const rewardSecondUSDT = Number(props.rewardSecond);
 const nft = props.nft;
 
 let rewardsUSDT: Ref<UnwrapRef<number>> = ref(0);
+let imgNFT: Ref<UnwrapRef<string>> = ref(ImageNFT.nft);
+let NFTParams: INFTParams = reactive({name: '', description: '', image: '', attributes: []});
 
 onMounted(async () => {
+  getParamsNFT(nft.id)
+      .then((item) => {
+        NFTParams = item.data;
+        imgNFT.value = ImageNFTStorage.nft === item.data.image ? ImageNFT.nft : ImageNFT.nft2;
+      });
   // @ts-ignore
   if (nft.isStaked) {
     await setWeb3();
@@ -60,6 +80,11 @@ const claimRewardsNFT = (id: number) => {
 
 <style scoped lang="scss">
 .employment {
+
+  &__title{
+    color: var(--text-color);
+  }
+
   &__card {
     display: grid;
     grid-template-columns: 1fr;
@@ -77,7 +102,8 @@ const claimRewardsNFT = (id: number) => {
         opacity: 0;
       }
 
-      .card__count_4 {}
+      .card__count_4 {
+      }
 
       .card__count_1 {
         animation-delay: 1s;

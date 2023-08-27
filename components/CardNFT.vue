@@ -1,13 +1,20 @@
 <template>
   <v-card class=" card-nft">
     <slot name="title"></slot>
-    <img class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
+    <img class="card-nft__nft" :src="`../_nuxt/assets/images/${img}`" alt="nft image">
     <div class="card-nft__minting" v-if="isMinting">
-      <div></div>
       <span>Minting now</span>
     </div>
-    <slot name="rewards" class="card-nft__rewards" />
-    <slot name="button" class="card-nft__button" />
+    <slot name="rewards" class="card-nft__rewards"/>
+    <slot name="button" class="card-nft__button"/>
+    <div class="card-nft__tooltip">
+      <v-tooltip>
+        <template v-slot:activator="{ props }">
+          <v-icon v-bind="props" color="#658d1b" icon="mdi-alert-circle"></v-icon>
+        </template>
+        <slot name="tooltip"/>
+      </v-tooltip>
+    </div>
   </v-card>
 </template>
 
@@ -15,7 +22,12 @@
 import {defineProps} from "vue";
 
 const props = defineProps({
-  isMinting: {type: Boolean, default: false}
+  isMinting: {type: Boolean, default: false},
+  img: {
+    type: String,
+    default: 'nft.webp',
+    required: false
+  }
 })
 </script>
 
@@ -69,6 +81,12 @@ const props = defineProps({
 
   &__button {
     margin: 10px;
+  }
+
+  &__tooltip {
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
 

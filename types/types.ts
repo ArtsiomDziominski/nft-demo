@@ -30,3 +30,15 @@ export interface IUserNFT {
     isStaked: boolean;
     rewards: number
 }
+
+export interface INFTParamsAttributes {
+    trait_type: string;
+    value: string;
+}
+
+export interface INFTParams {
+    name: string;
+    description: string;
+    image: string;
+    attributes: INFTParamsAttributes[];
+}
