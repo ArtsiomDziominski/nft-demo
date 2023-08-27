@@ -1,7 +1,7 @@
 <template>
   <v-card class=" card-nft">
     <slot name="title"></slot>
-    <img class="card-nft__nft" :src="`../_nuxt/assets/images/${img}`" alt="nft image">
+    <img class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
     <div class="card-nft__minting" v-if="isMinting">
       <span>Minting now</span>
     </div>
