@@ -18,8 +18,8 @@ export enum ImageNFTStorage {
 }
 
 export enum ImageNFT {
-    nft = 'nft.f71c0619.webp',
-    nft2 = 'nft-2.a404d47f.webp'
+    nft = 'nft.webp',
+    nft2 = 'nft-2.webp'
 }
 
 export enum ImageNFTProd {
