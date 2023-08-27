@@ -24,7 +24,7 @@
       <p>{{NFTParams.name}}</p>
       <p>{{NFTParams.description}}</p>
       <p v-for="attributes in NFTParams.attributes">{{attributes.trait_type}}: {{attributes.value}}</p>
-      <p>Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
+      <p v-if="nft.isStaked">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
     </template>
   </CardNFT>
 </template>

@@ -1,7 +1,8 @@
 <template>
   <v-card class=" card-nft">
     <slot name="title"></slot>
-    <img class="card-nft__nft" :src="`../assets/images/${img}`" alt="nft image">
+    <img v-if="img === ImageNFT.nft" class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
+    <img v-else class="card-nft__nft" src="../assets/images/nft-2.webp" alt="nft image">
     <div class="card-nft__minting" v-if="isMinting">
       <span>Minting now</span>
     </div>
@@ -20,6 +21,7 @@
 
 <script setup lang="ts">
 import {defineProps} from "vue";
+import {ImageNFT} from "../const/const";
 
 const props = defineProps({
   isMinting: {type: Boolean, default: false},
