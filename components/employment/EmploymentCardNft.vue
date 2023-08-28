@@ -5,7 +5,7 @@
     </template>
     <template #rewards v-if="nft.isStaked">
       <div class="card">
-        <p :class="`card__count card__count_${num}`" v-for="num in 4">+ {{ rewardSecondUSDT }}</p>
+        <p v-if="rewardSecondUSDT" :class="`card__count card__count_${num}`" v-for="num in 4">+ {{ rewardSecondUSDT }}</p>
         <p class="card__rewards">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
       </div>
     </template>
