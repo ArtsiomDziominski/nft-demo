@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper-employment">
     <div class="employment">
-      <template v-for="nft in usersNFT.slice(0, countCard)">
-        <EmploymentCardNft :nft="nft" :rewardSecond="rewardSecondUSDT"/>
+      <HeaderConnectWallet v-if="!user.wallet"/>
+      <template v-else>
+        <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="rewardSecondUSDT"/>
       </template>
     </div>
     <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>
