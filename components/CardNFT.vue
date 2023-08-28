@@ -7,7 +7,7 @@
     </div>
     <slot name="rewards" class="card-nft__rewards"/>
     <slot name="button" class="card-nft__button"/>
-    <div class="card-nft__tooltip">
+    <div v-if="isTooltip" class="card-nft__tooltip">
       <v-tooltip>
         <template v-slot:activator="{ props }">
           <v-icon v-bind="props" color="#658d1b" icon="mdi-alert-circle"></v-icon>
@@ -26,6 +26,11 @@ const props = defineProps({
   img: {
     type: String,
     default: 'nft.webp',
+    required: false
+  },
+  isTooltip: {
+    type: Boolean,
+    default: false,
     required: false
   }
 })
