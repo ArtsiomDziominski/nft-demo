@@ -1,7 +1,7 @@
 <template>
   <CardNFT class="employment__card" :is-minting="false" :key="nft.id" :img="imgNFT" :isTooltip="true">
     <template #title>
-      <p class="employment__title">{{NFTParams.name}}</p>
+      <p class="employment__title">{{ NAME + String(nft.id) }}</p>
     </template>
     <template #rewards v-if="nft.isStaked">
       <div class="card">
@@ -11,10 +11,10 @@
     </template>
     <template #button>
       <v-btn v-if="!nft.isStaked" @click="stake(nft.id)" color="primary">
-        stake {{nft.id }}
+        stake #{{nft.id }}
       </v-btn>
       <v-btn v-if="nft.isStaked" @click="unStake(nft.id)" color="primary">
-        UnStake {{nft.id }}
+        UnStake #{{nft.id }}
       </v-btn>
       <v-btn v-if="nft.isStaked" @click="claimRewardsNFT(nft.id)" color="primary">
         Claim Rewards
