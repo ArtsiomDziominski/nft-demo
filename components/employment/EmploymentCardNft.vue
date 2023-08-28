@@ -1,5 +1,5 @@
 <template>
-  <CardNFT class="employment__card" :is-minting="false" :key="nft.id" :img="imgNFT">
+  <CardNFT class="employment__card" :is-minting="false" :key="nft.id" :img="imgNFT" :isTooltip="true">
     <template #title>
       <p class="employment__title">{{NFTParams.name}}</p>
     </template>
