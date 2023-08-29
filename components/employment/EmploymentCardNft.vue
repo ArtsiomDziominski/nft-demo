@@ -78,7 +78,9 @@ onMounted(async () => {
         })
         .catch((e) => console.log(e));
   }
-  setInterval(() => rewardsUSDT.value = rewardsUSDT.value + rewardSecondUSDT, 1000)
+  setInterval(() => {
+    if (nft.isStaked) rewardsUSDT.value += rewardSecondUSDT;
+  }, 1000)
 })
 
 const claimRewardsNFT = async (id: number) => {
