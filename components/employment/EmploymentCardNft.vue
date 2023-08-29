@@ -10,13 +10,13 @@
       </div>
     </template>
     <template #button>
-      <v-btn v-if="!nft.isStaked" @click="stake(nft.id)" color="primary">
+      <v-btn v-if="!nft.isStaked" :loading="loaderStake" @click="stake(nft.id)" color="primary">
         stake #{{nft.id }}
       </v-btn>
-      <v-btn v-if="nft.isStaked" @click="unStake(nft.id)" color="primary">
+      <v-btn v-if="nft.isStaked" :loading="loaderUnstake" @click="unStake(nft.id)" color="primary">
         UnStake #{{nft.id }}
       </v-btn>
-      <v-btn v-if="nft.isStaked" @click="claimRewardsNFT(nft.id)" color="primary">
+      <v-btn v-if="nft.isStaked" :loading="loaderClaim" @click="claimRewardsNFT(nft.id)" color="primary">
         Claim Rewards
       </v-btn>
     </template>
@@ -37,7 +37,16 @@ import {ImageNFT, ImageNFTStorage, NAME} from "../../const/const";
 import requests from "../../mixins/requests";
 import {INFTParams} from "../../types/types";
 
-const {getRewards, setContract, setWeb3, stake, unStake, claimRewards} = requestsNFT();
+const {
+  getRewards,
+  setContract,
+  setWeb3,
+  stake,
+  unStake,
+  claimRewards,
+  loaderStake,
+  loaderUnstake
+} = requestsNFT();
 const {getParamsNFT} = requests();
 
 const props = defineProps({
@@ -51,6 +60,7 @@ const nft = props.nft;
 let rewardsUSDT: Ref<UnwrapRef<number>> = ref(0);
 let imgNFT: Ref<UnwrapRef<string>> = ref(ImageNFT.nft);
 let NFTParams: INFTParams = reactive({name: '', description: '', image: '', attributes: []});
+let loaderClaim: Ref<UnwrapRef<boolean>> = ref(false);
 
 onMounted(async () => {
   getParamsNFT(nft.id)
@@ -71,10 +81,14 @@ onMounted(async () => {
   setInterval(() => rewardsUSDT.value = rewardsUSDT.value + rewardSecondUSDT, 1000)
 })
 
-const claimRewardsNFT = (id: number) => {
-  claimRewards(nft.id)
-      .then(() => rewardsUSDT.value = 0)
-      .catch();
+const claimRewardsNFT = async (id: number) => {
+  loaderClaim.value = true;
+  await claimRewards(nft.id)
+      .then(() => {
+        rewardsUSDT.value = 0;
+        loaderClaim.value = false;
+      })
+      .catch(() => loaderClaim.value = false);
 }
 </script>
 

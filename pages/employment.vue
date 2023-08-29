@@ -3,7 +3,10 @@
     <div class="employment">
       <HeaderConnectWallet v-if="!user.wallet"/>
       <template v-else>
-        <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="rewardSecondUSDT"/>
+        <MLoader v-if="usersNFT.length < 5"/>
+        <template v-else>
+          <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="rewardSecondUSDT"/>
+        </template>
       </template>
     </div>
     <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>

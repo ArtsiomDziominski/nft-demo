@@ -1,7 +1,8 @@
 import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
-import {ref, Ref, onMounted} from "vue";
+import {ref, Ref, onMounted, UnwrapRef} from "vue";
+import {tr} from "vuetify/locale";
 
 export default function requestsNFT() {
     const store = userStore();
@@ -10,6 +11,9 @@ export default function requestsNFT() {
     let web3: any = null;
     let ethereum: any = null;
     let totalNFT: Ref<number | null> = ref(null);
+
+    let loaderStake: Ref<UnwrapRef<boolean>> = ref(false);
+    let loaderUnstake: Ref<UnwrapRef<boolean>> = ref(false);
 
     onMounted(async () => {
         // @ts-ignore
@@ -90,17 +94,21 @@ export default function requestsNFT() {
     }
 
     async function stake(idNft: number): Promise<void> {
+        loaderStake.value = true;
         await contract.methods.stake(idNft).send({from: user.wallet})
             .then(async (total: any) => {
-                getUserNFT()
-            });
+                getUserNFT();
+                loaderStake.value = false;
+            }).catch(() => loaderStake.value = false)
     }
 
     async function unStake(idNft: number): Promise<void> {
+        loaderUnstake.value = true;
         await contract.methods.unstake(idNft).send({from: user.wallet})
             .then(async (total: any) => {
-                getUserNFT()
-            });
+                getUserNFT();
+                loaderUnstake.value = false;
+            }).catch(() => loaderUnstake.value = false);
     }
 
     function claimRewards(id: number) {
@@ -140,7 +148,9 @@ export default function requestsNFT() {
         rewardSecond,
         getRewards,
         setContract,
-        setWeb3
+        setWeb3,
+        loaderStake,
+        loaderUnstake
     }
 
 }
