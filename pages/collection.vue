@@ -4,7 +4,7 @@
     <v-divider></v-divider>
     <div class="card-collection">
       <div class="card-collection__nft" v-if="user.countNFT && user.wallet">
-        <template v-for="count in user.countNFT">
+        <template v-for="count in usersNFT">
           <CardNFT />
         </template>
       </div>
@@ -28,7 +28,7 @@ import wallet from "~/mixins/wallet";
 import {BUY_NFT} from "~/const/href";
 
 const store = userStore();
-const {user} = store;
+const {user, usersNFT} = store;
 const {getUserNFT, connectMetamask} = wallet();
 
 onMounted(async () => {
@@ -42,13 +42,18 @@ function connectWallet() {
 
 <style scoped lang="scss">
 .wrapper {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+
   .card-collection {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     width: 100%;
     min-height: 500px;
     margin-top: 30px;
+    padding: 15px;
     border: 2px solid var(--border-color-card);
     border-radius: var(--border-radius-card);
     background-color: var(--background-card-collection);
@@ -57,7 +62,8 @@ function connectWallet() {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: space-around;
       gap: 30px;
     }
 
