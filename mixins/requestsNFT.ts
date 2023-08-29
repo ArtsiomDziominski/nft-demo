@@ -2,11 +2,10 @@ import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
-import {tr} from "vuetify/locale";
 
 export default function requestsNFT() {
     const store = userStore();
-    const {user, changeWallet, changeCountNFT, addUsersNFT, cleanUsersNFT} = store;
+    const {user, changeWallet, changeCountNFT, addUsersNFT, cleanUsersNFT, usersNFT} = store;
     let contract: any = null;
     let web3: any = null;
     let ethereum: any = null;
@@ -97,7 +96,11 @@ export default function requestsNFT() {
         loaderStake.value = true;
         await contract.methods.stake(idNft).send({from: user.wallet})
             .then(async (total: any) => {
-                getUserNFT();
+                usersNFT.forEach((nft) => {
+                    if (nft.id === idNft) {
+                        nft.isStaked = !nft.isStaked
+                    }
+                });
                 loaderStake.value = false;
             }).catch(() => loaderStake.value = false)
     }
@@ -106,7 +109,11 @@ export default function requestsNFT() {
         loaderUnstake.value = true;
         await contract.methods.unstake(idNft).send({from: user.wallet})
             .then(async (total: any) => {
-                getUserNFT();
+                usersNFT.forEach((nft) => {
+                    if (nft.id === idNft) {
+                        nft.isStaked = !nft.isStaked
+                    }
+                });
                 loaderUnstake.value = false;
             }).catch(() => loaderUnstake.value = false);
     }
@@ -137,7 +144,7 @@ export default function requestsNFT() {
             })
             .catch((e) => console.log(e));
 
-        return  web3.utils.fromWei(rewards, 'ether');
+        return web3.utils.fromWei(rewards, 'ether');
     }
 
     return {
