@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {Ref, ref} from "vue";
+import {Ref, ref, UnwrapRef} from "vue";
 import {reactive} from "@vue/reactivity";
 import {IUserNFT} from "../types/types";
 
