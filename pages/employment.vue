@@ -1,12 +1,10 @@
 <template>
   <div class="wrapper-employment">
-    <div class="employment">
+    <MLoader v-if="isMainLoader"/>
+    <div v-else class="employment">
       <HeaderConnectWallet v-if="!user.wallet"/>
       <template v-else>
-<!--        <MLoader v-if="usersNFT.length < 5"/>-->
-<!--        <template v-else>-->
-          <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="user.rewardSecond"/>
-<!--        </template>-->
+        <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="user.rewardSecond"/>
       </template>
     </div>
     <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>
@@ -14,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, Ref, ref} from "vue";
+import {Ref, ref} from "vue";
 import {userStore} from "~/store/userStore";
 import {storeToRefs} from 'pinia'
 import wallet from "~/mixins/wallet";
@@ -24,7 +22,7 @@ import EmploymentCardNft from "../components/employment/EmploymentCardNft.vue";
 const {connectMetamask} = wallet();
 const {getUserNFT, rewardSecond} = requestsNFT();
 const store = userStore();
-const {user, usersNFT} = storeToRefs(store)
+const {user, usersNFT, isMainLoader} = storeToRefs(store)
 
 let ethereum = null;
 let web3 = null;

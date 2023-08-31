@@ -3,7 +3,7 @@
     <h1>Your Collection</h1>
     <v-divider></v-divider>
     <div class="card-collection">
-      <div class="card-collection__nft" v-if="user.countNFT && user.wallet">
+      <div class="card-collection__nft" v-if="user.countNFTTotal && user.wallet">
         <template v-for="count in usersNFT">
           <CardNFT />
         </template>
@@ -11,7 +11,7 @@
       <v-btn v-else-if="!user.wallet" variant="text" @click="connectWallet">
         Connect Wallet
       </v-btn>
-      <div v-else-if="!user.countNFT" class="card-collection__no-nft">
+      <div v-else-if="!user.countNFTTotal" class="card-collection__no-nft">
         <p>You don't have nft</p>
         <a :href="BUY_NFT" target="_blank" @click="connectWallet">
           Buy NFT
@@ -28,7 +28,7 @@ import {BUY_NFT} from "~/const/href";
 import {storeToRefs} from "pinia";
 
 const store = userStore();
-const {user, usersNFT} = storeToRefs(store);
+const {user, usersNFT, isMainLoader} = storeToRefs(store);
 const {getUserNFT, connectMetamask} = wallet();
 
 

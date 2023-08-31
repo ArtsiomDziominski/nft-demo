@@ -8,7 +8,7 @@
       <div class="stat__profit">
         <h4>Profit</h4>
         <div class="card-profit">
-          <StatisticCard title="NFT" :profit="user.countNFT" currency="pc."/>
+          <StatisticCard title="NFT" :profit="user.countNFTTotal" currency="pc."/>
           <StatisticCard title="Week" :profit="statisticList.profits?.profitWeek" currency="USDT"/>
           <StatisticCard title="Month" :profit="statisticList.profits?.profitMonth" currency="USDT"/>
           <StatisticCard title="All time" :profit="statisticList.profits?.profitAll" currency="USDT"/>
@@ -26,8 +26,8 @@
         </div>
       </div>
     </div>
-    <MLoader v-else-if="isLoader && user.countNFT === null"/>
-    <RegistrationStatistic v-else-if="!user.countNFT"/>
+    <MLoader v-else-if="isLoader && user.countNFTTotal === null"/>
+    <RegistrationStatistic v-else-if="!user.countNFTTotal"/>
     <WalletStatistic v-else-if="!user.wallet" @click="connectMetamask"/>
   </div>
 </template>

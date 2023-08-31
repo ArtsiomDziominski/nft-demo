@@ -11,7 +11,7 @@
     </p>
   </div>
 
-  <div class="no-nft" v-if="!user.countNFT">
+  <div class="no-nft" v-if="!user.countNFTTotal">
     <p class="no-nft__title">
       There is no NFT in your wallet
     </p>

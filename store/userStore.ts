@@ -6,21 +6,21 @@ import {IUser, IUserNFT} from "../types/types";
 export const userStore = defineStore('userStore', () => {
     let user: Ref<IUser> = ref({
         wallet: null,
-        countNFT: null,
+        countNFTTotal: 0,
+        countNFT: 0,
         isConnectWallet: false,
         rewardSecond: ''
     });
-
     let usersNFT: Ref<IUserNFT[]> = ref([]);
-
     const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0});
+    let isMainLoader = ref(true);
 
     function changeWallet(address: string): void {
         user.value.wallet = address;
     }
 
     function changeCountNFT(amount: number): void {
-        user.value.countNFT = amount
+        user.value.countNFTTotal = amount
     }
 
     function addUsersNFT(nft: { id: number, isStaked: boolean }): void {
@@ -35,8 +35,9 @@ export const userStore = defineStore('userStore', () => {
     function cleanUserStore(): void {
         user.value = {
             wallet: null,
-            countNFT: null,
-            isConnectWallet: false
+            countNFT: 0,
+            isConnectWallet: false,
+            rewardSecond: user.value.rewardSecond
         }
         usersNFT.value = [];
     }
@@ -49,6 +50,7 @@ export const userStore = defineStore('userStore', () => {
         usersNFT,
         addUsersNFT,
         cleanUsersNFT,
-        cleanUserStore
+        cleanUserStore,
+        isMainLoader
     }
 })

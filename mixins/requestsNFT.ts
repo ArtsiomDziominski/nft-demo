@@ -2,11 +2,17 @@ import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
-import {storeToRefs} from "pinia";
 
 export default function requestsNFT() {
     const store = userStore();
-    const {user, changeWallet, changeCountNFT, addUsersNFT, cleanUsersNFT, usersNFT} = store;
+    let {
+        user,
+        changeWallet,
+        changeCountNFT,
+        addUsersNFT,
+        cleanUsersNFT,
+        usersNFT
+    } = store;
     let contract: any = null;
     let web3: any = null;
     let ethereum: any = null;
@@ -46,13 +52,16 @@ export default function requestsNFT() {
     }
 
     async function getUserNFT(): Promise<number> {
-        cleanUsersNFT();
-        contract = await getContract();
-        const walletAddress = await getAddressWallet();
-        changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
-        await getTotalNFT()
-        getNftList();
-        getNftListStake()
+        try {
+            cleanUsersNFT();
+            contract = await getContract();
+            const walletAddress = await getAddressWallet();
+            changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
+            await getTotalNFT();
+            await rewardSecond();
+            getNftList();
+            getNftListStake();
+        } catch (_) {}
         return Number(user.countNFT);
     }
 

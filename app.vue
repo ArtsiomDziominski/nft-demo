@@ -14,11 +14,16 @@ import MainHeader from "~/components/header/MainHeader.vue";
 import MainFooter from "~/components/footer/MainFooter.vue";
 import {onMounted} from "vue";
 import requestsNFT from "./mixins/requestsNFT";
-const {getUserNFT, rewardSecond} = requestsNFT();
+import {storeToRefs} from "pinia";
+import {userStore} from "./store/userStore";
+const store = userStore();
+const {getUserNFT} = requestsNFT();
+const {isMainLoader} = storeToRefs(store);
 
 onMounted(async () => {
+  isMainLoader.value = true;
   await getUserNFT();
-  rewardSecond();
+  isMainLoader.value = false;
 })
 </script>
 
