@@ -30,16 +30,9 @@ let ethereum = null;
 let web3 = null;
 let contract = null;
 let balance: Ref<number> = ref(0);
-let balanceStake: Ref<number> = ref(0);
-let rewardSecondUSDT: Ref<string> = ref('');
 
 let timer = ref(0);
 let countCard = ref(5);
-
-onMounted(async () => {
-  console.log('sfssf');
-  // await rewardSecond().then((res) => rewardSecondUSDT.value = res);
-})
 
 const showMore = () => {
   countCard.value += 4;

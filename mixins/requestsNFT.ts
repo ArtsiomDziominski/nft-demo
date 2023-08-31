@@ -133,7 +133,6 @@ export default function requestsNFT() {
             .then((response: any) => {
                 reward = Number(response);
                 user.rewardSecond = web3.utils.fromWei(reward, 'ether');
-                console.log(web3.utils.fromWei(reward, 'ether'));
             });
         return web3.utils.fromWei(reward, 'ether');
     }

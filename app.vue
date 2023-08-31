@@ -18,7 +18,7 @@ const {getUserNFT, rewardSecond} = requestsNFT();
 
 onMounted(async () => {
   await getUserNFT();
-  await rewardSecond();
+  rewardSecond();
 })
 </script>
 
