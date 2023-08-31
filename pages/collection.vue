@@ -13,6 +13,7 @@
                 :name="nft.name"
                 :id="nft.id"
                 :isStaked="nft.isStaked"
+                to="/employment"
             />
           </template>
         </div>
