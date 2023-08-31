@@ -2,6 +2,7 @@ import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
+import requests from "./requests";
 
 export default function requestsNFT() {
     const store = userStore();
@@ -13,6 +14,7 @@ export default function requestsNFT() {
         cleanUsersNFT,
         usersNFT
     } = store;
+    const {getParamsNFT} = requests();
     let contract: any = null;
     let web3: any = null;
     let ethereum: any = null;
@@ -158,6 +160,8 @@ export default function requestsNFT() {
 
         return web3.utils.fromWei(rewards, 'ether');
     }
+
+
 
     return {
         getUserNFT,

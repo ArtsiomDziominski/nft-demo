@@ -2,8 +2,11 @@ import {defineStore} from "pinia";
 import {Ref, ref, UnwrapRef} from "vue";
 import {reactive} from "@vue/reactivity";
 import {IUser, IUserNFT} from "../types/types";
+import requests from "../mixins/requests";
+import {ImageNFT, ImageNFTStorage} from "../const/const";
 
 export const userStore = defineStore('userStore', () => {
+    const {getParamsNFT} = requests();
     let user: Ref<IUser> = ref({
         wallet: null,
         countNFTTotal: 0,
@@ -23,9 +26,21 @@ export const userStore = defineStore('userStore', () => {
         user.value.countNFTTotal = amount
     }
 
-    function addUsersNFT(nft: { id: number, isStaked: boolean }): void {
+    async function addUsersNFT(nft: { id: number, isStaked: boolean }): void {
+        let NFT = nft;
+
+        await getParamsNFT(nft.id).then((res) => {
+            const NFTParams = res.data;
+            NFT = {
+            ...nft,
+            ...NFTParams,
+                image: ImageNFTStorage.nft === NFTParams.image ? ImageNFT.nft : ImageNFT.nft2
+            }
+        });
         // @ts-ignore
-        usersNFT.value.push(nft)
+        usersNFT.value.push(NFT);
+
+
     }
 
     function cleanUsersNFT(): void {

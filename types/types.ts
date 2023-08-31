@@ -28,7 +28,15 @@ export interface IUserBase {
 export interface IUserNFT {
     id: number;
     isStaked: boolean;
-    rewards: number
+    image: string;
+    name: string;
+    description: string;
+    attributes: [
+        {
+            trait_type: string;
+            value: string;
+        }
+    ];
 }
 
 export interface INFTParamsAttributes {

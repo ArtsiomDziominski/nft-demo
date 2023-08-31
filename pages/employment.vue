@@ -4,7 +4,11 @@
     <div v-else class="employment">
       <HeaderConnectWallet v-if="!user.wallet"/>
       <template v-else>
-        <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="user.rewardSecond"/>
+        <EmploymentCardNft
+            v-for="nft in usersNFT.slice(0, countCard)"
+            :nft="nft"
+            :rewardSecond="user.rewardSecond"
+        />
       </template>
     </div>
     <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>

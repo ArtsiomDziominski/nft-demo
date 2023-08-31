@@ -3,19 +3,28 @@
     <h1>Your Collection</h1>
     <v-divider></v-divider>
     <div class="card-collection">
-      <div class="card-collection__nft" v-if="user.countNFTTotal && user.wallet">
-        <template v-for="count in usersNFT">
-          <CardNFT />
-        </template>
-      </div>
-      <v-btn v-else-if="!user.wallet" variant="text" @click="connectWallet">
-        Connect Wallet
-      </v-btn>
-      <div v-else-if="!user.countNFTTotal" class="card-collection__no-nft">
+      <MLoader v-if="isMainLoader && !user.wallet"/>
+      <div v-else>
+        <div class="card-collection__nft" v-if="user.countNFTTotal && user.wallet">
+          <template v-for="nft in usersNFT" :key="nft.id" >
+            <CardNFT
+                :is-minting="false"
+                :img="nft.image"
+                :name="nft.name"
+                :id="nft.id"
+                :isStaked="nft.isStaked"
+            />
+          </template>
+        </div>
+        <v-btn v-else-if="!user.wallet" variant="text" @click="connectWallet">
+          Connect Wallet
+        </v-btn>
+        <div v-else-if="!usersNFT.length" class="card-collection__no-nft">
         <p>You don't have nft</p>
         <a :href="BUY_NFT" target="_blank" @click="connectWallet">
           Buy NFT
         </a>
+      </div>
       </div>
     </div>
   </div>
