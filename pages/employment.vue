@@ -3,10 +3,10 @@
     <div class="employment">
       <HeaderConnectWallet v-if="!user.wallet"/>
       <template v-else>
-        <MLoader v-if="usersNFT.length < 5"/>
-        <template v-else>
+<!--        <MLoader v-if="usersNFT.length < 5"/>-->
+<!--        <template v-else>-->
           <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="rewardSecondUSDT"/>
-        </template>
+<!--        </template>-->
       </template>
     </div>
     <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>
@@ -24,8 +24,7 @@ import EmploymentCardNft from "../components/employment/EmploymentCardNft.vue";
 const {connectMetamask} = wallet();
 const {getUserNFT, rewardSecond} = requestsNFT();
 const store = userStore();
-const {user} = store;
-const {usersNFT} = storeToRefs(store)
+const {user, usersNFT} = storeToRefs(store)
 
 let ethereum = null;
 let web3 = null;
@@ -38,7 +37,6 @@ let timer = ref(0);
 let countCard = ref(4);
 
 onMounted(async () => {
-  getUserNFT();
   rewardSecond().then((res) => rewardSecondUSDT.value = res);
 })
 

@@ -46,7 +46,7 @@ export default function requestsNFT() {
 
     async function getUserNFT(): Promise<number> {
         cleanUsersNFT();
-        contract = getContract()
+        contract = await getContract();
         const walletAddress = await getAddressWallet();
         changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
         await getTotalNFT()
@@ -125,6 +125,7 @@ export default function requestsNFT() {
 
     async function rewardSecond() {
         let reward = 0;
+        contract = await getContract();
         await contract.methods
             .rewardSecond()
             .call()

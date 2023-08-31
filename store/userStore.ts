@@ -41,9 +41,13 @@ export const userStore = defineStore('userStore', () => {
     }
 
     return {
-        user, changeWallet, changeCountNFT,
+        user,
+        changeWallet,
+        changeCountNFT,
         userBase,
-        usersNFT, addUsersNFT, cleanUsersNFT,
+        usersNFT,
+        addUsersNFT,
+        cleanUsersNFT,
         cleanUserStore
     }
 })

@@ -12,6 +12,13 @@
 <script setup lang="ts">
 import MainHeader from "~/components/header/MainHeader.vue";
 import MainFooter from "~/components/footer/MainFooter.vue";
+import {onMounted} from "vue";
+import requestsNFT from "./mixins/requestsNFT";
+const {getUserNFT} = requestsNFT();
+
+onMounted(async () => {
+  await getUserNFT();
+})
 </script>
 
 <style lang="scss">

@@ -22,18 +22,15 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
 import {userStore} from "~/store/userStore";
 import wallet from "~/mixins/wallet";
 import {BUY_NFT} from "~/const/href";
+import {storeToRefs} from "pinia";
 
 const store = userStore();
-const {user, usersNFT} = store;
+const {user, usersNFT} = storeToRefs(store);
 const {getUserNFT, connectMetamask} = wallet();
 
-onMounted(async () => {
-  // await getUserNFT()
-});
 
 function connectWallet() {
   connectMetamask();
