@@ -12,6 +12,19 @@
 <script setup lang="ts">
 import MainHeader from "~/components/header/MainHeader.vue";
 import MainFooter from "~/components/footer/MainFooter.vue";
+import {onMounted} from "vue";
+import requestsNFT from "./mixins/requestsNFT";
+import {storeToRefs} from "pinia";
+import {userStore} from "./store/userStore";
+const store = userStore();
+const {getUserNFT} = requestsNFT();
+const {isMainLoader} = storeToRefs(store);
+
+onMounted(async () => {
+  isMainLoader.value = true;
+  await getUserNFT();
+  isMainLoader.value = false;
+})
 </script>
 
 <style lang="scss">

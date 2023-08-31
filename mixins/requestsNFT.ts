@@ -2,10 +2,19 @@ import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
+import requests from "./requests";
 
 export default function requestsNFT() {
     const store = userStore();
-    const {user, changeWallet, changeCountNFT, addUsersNFT, cleanUsersNFT, usersNFT} = store;
+    let {
+        user,
+        changeWallet,
+        changeCountNFT,
+        addUsersNFT,
+        cleanUsersNFT,
+        usersNFT
+    } = store;
+    const {getParamsNFT} = requests();
     let contract: any = null;
     let web3: any = null;
     let ethereum: any = null;
@@ -45,13 +54,16 @@ export default function requestsNFT() {
     }
 
     async function getUserNFT(): Promise<number> {
-        cleanUsersNFT();
-        contract = getContract()
-        const walletAddress = await getAddressWallet();
-        changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
-        await getTotalNFT()
-        await getNftList();
-        await getNftListStake()
+        try {
+            cleanUsersNFT();
+            contract = await getContract();
+            const walletAddress = await getAddressWallet();
+            changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
+            await getTotalNFT();
+            await rewardSecond();
+            getNftList();
+            getNftListStake();
+        } catch (_) {}
         return Number(user.countNFT);
     }
 
@@ -125,11 +137,13 @@ export default function requestsNFT() {
 
     async function rewardSecond() {
         let reward = 0;
+        contract = await getContract();
         await contract.methods
             .rewardSecond()
             .call()
             .then((response: any) => {
                 reward = Number(response);
+                user.rewardSecond = web3.utils.fromWei(reward, 'ether');
             });
         return web3.utils.fromWei(reward, 'ether');
     }
@@ -146,6 +160,8 @@ export default function requestsNFT() {
 
         return web3.utils.fromWei(rewards, 'ether');
     }
+
+
 
     return {
         getUserNFT,

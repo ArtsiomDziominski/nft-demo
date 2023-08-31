@@ -1,10 +1,14 @@
 <template>
-  <v-card class=" card-nft">
-    <slot name="title"></slot>
+  <v-card class="card-nft">
+    <div v-if="name" class="card-nft__title">{{ name }}</div>
     <img v-if="img === ImageNFT.nft" class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
     <img v-else class="card-nft__nft" src="../assets/images/nft-2.webp" alt="nft image">
     <div class="card-nft__minting" v-if="isMinting">
+      <div></div>
       <span>Minting now</span>
+    </div>
+    <div class="card-nft__staking" v-if="isStaked">
+      <span>Staking</span>
     </div>
     <slot name="rewards" class="card-nft__rewards"/>
     <slot name="button" class="card-nft__button"/>
@@ -34,6 +38,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
     required: false
+  },
+  isStaked: {
+    type: Boolean,
+    default: false,
+    required: false
+  },
+  name: {
+    type: String,
+    default: '',
+    required: false
   }
 })
 </script>
@@ -48,6 +62,10 @@ const props = defineProps({
   gap: 6px;
   padding: 20px;
   background: var(--background-card);
+
+  &__title {
+    color: var(--text-color);
+  }
 
   &__nft {
     width: 100%;
@@ -80,6 +98,22 @@ const props = defineProps({
       background: rgb(52, 199, 123);
       animation: 3s ease 0s infinite normal none running pulse;
     }
+  }
+
+  &__staking {
+    position: absolute;
+    top: 55px;
+    right: 25px;
+    padding: 10px;
+    color: var(--text-color);
+    background-color: var(--background-minting);
+    backdrop-filter: blur(20px);
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__rewards {
