@@ -34,7 +34,7 @@ let balanceStake: Ref<number> = ref(0);
 let rewardSecondUSDT: Ref<number> = ref(0);
 
 let timer = ref(0);
-let countCard = ref(4);
+let countCard = ref(5);
 
 onMounted(async () => {
   rewardSecond().then((res) => rewardSecondUSDT.value = res);

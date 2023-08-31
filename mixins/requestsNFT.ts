@@ -50,8 +50,8 @@ export default function requestsNFT() {
         const walletAddress = await getAddressWallet();
         changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
         await getTotalNFT()
-        await getNftList();
-        await getNftListStake()
+        getNftList();
+        getNftListStake()
         return Number(user.countNFT);
     }
 
