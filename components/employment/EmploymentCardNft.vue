@@ -51,7 +51,7 @@ const {getParamsNFT} = requests();
 
 const props = defineProps({
   nft: Object,
-  rewardSecond: Number
+  rewardSecond: String
 })
 
 const rewardSecondUSDT = Number(props.rewardSecond);

@@ -2,6 +2,7 @@ import {userStore} from "~/store/userStore";
 import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
+import {storeToRefs} from "pinia";
 
 export default function requestsNFT() {
     const store = userStore();
@@ -131,6 +132,8 @@ export default function requestsNFT() {
             .call()
             .then((response: any) => {
                 reward = Number(response);
+                user.rewardSecond = web3.utils.fromWei(reward, 'ether');
+                console.log(web3.utils.fromWei(reward, 'ether'));
             });
         return web3.utils.fromWei(reward, 'ether');
     }

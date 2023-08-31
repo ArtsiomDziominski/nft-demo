@@ -14,10 +14,11 @@ import MainHeader from "~/components/header/MainHeader.vue";
 import MainFooter from "~/components/footer/MainFooter.vue";
 import {onMounted} from "vue";
 import requestsNFT from "./mixins/requestsNFT";
-const {getUserNFT} = requestsNFT();
+const {getUserNFT, rewardSecond} = requestsNFT();
 
 onMounted(async () => {
   await getUserNFT();
+  await rewardSecond();
 })
 </script>
 

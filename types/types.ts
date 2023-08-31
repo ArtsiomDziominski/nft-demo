@@ -42,3 +42,10 @@ export interface INFTParams {
     image: string;
     attributes: INFTParamsAttributes[];
 }
+
+export interface IUser {
+    wallet: string | null;
+    countNFT: number;
+    isConnectWallet: boolean;
+    rewardSecond: string;
+}

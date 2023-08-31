@@ -5,7 +5,7 @@
       <template v-else>
 <!--        <MLoader v-if="usersNFT.length < 5"/>-->
 <!--        <template v-else>-->
-          <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="rewardSecondUSDT"/>
+          <EmploymentCardNft v-for="nft in usersNFT.slice(0, countCard)" :nft="nft" :rewardSecond="user.rewardSecond"/>
 <!--        </template>-->
       </template>
     </div>
@@ -31,13 +31,14 @@ let web3 = null;
 let contract = null;
 let balance: Ref<number> = ref(0);
 let balanceStake: Ref<number> = ref(0);
-let rewardSecondUSDT: Ref<number> = ref(0);
+let rewardSecondUSDT: Ref<string> = ref('');
 
 let timer = ref(0);
 let countCard = ref(5);
 
 onMounted(async () => {
-  rewardSecond().then((res) => rewardSecondUSDT.value = res);
+  console.log('sfssf');
+  // await rewardSecond().then((res) => rewardSecondUSDT.value = res);
 })
 
 const showMore = () => {
