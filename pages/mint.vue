@@ -9,14 +9,14 @@
           <MLoader v-else size="28"/>
           <p v-if="costNFT" style="font-size: 14px; margin-top: 10px;">Price: {{costNFT}} MATIC</p>
         </div>
-        <v-btn :disabled="totalNFT === null" @click="mint" color="primary" :loading="loaderBtn">
+        <v-btn :disabled="totalNFT === null" @click="mint" color="var(--main-green)" :loading="loaderBtn">
           Mint
         </v-btn>
       </template>
     </CardNFT>
     <div class="faucet">
       <a href="https://faucet.polygon.technology/" target="_blank">
-        <v-btn variant="text">
+        <v-btn variant="text" color="var(--main-green)">
           Faucet
         </v-btn>
       </a>
@@ -106,15 +106,27 @@ async function getAddressWallet() {
   return user.wallet;
 }
 
+async function mintNft() {
+  const walletCurrent = await getAddressWallet();
+  await contract.methods.mint(mintAmount.value)
+      .send({from: walletCurrent, value: "1000000000000000"})
+      .then(() => totalNFT.value += mintAmount.value)
+      .catch(() => {
+        loaderBtn.value = false
+      })
+}
+
 async function mint() {
   loaderBtn.value = true;
-  if (await connectMetamask() && process.client) {
+  try {
     const walletCurrent = await getAddressWallet();
-    await contract.methods.mint(mintAmount.value)
-        .send({from: walletCurrent, value: "1000000000000000"})
-        .then(() => totalNFT.value += mintAmount.value)
-        .catch(() => loaderBtn.value = false)
-  }
+    if (walletCurrent && process.client) {
+      await mintNft();
+    } else {
+      await connectMetamask();
+      await mintNft();
+    }
+  } catch (_) {}
   setTimeout(() => getTotal(), 5000);
   loaderBtn.value = false;
 }
@@ -125,19 +137,23 @@ async function mint() {
   display: grid;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
+  padding: 60px;
+
+  .count {
+    display: grid;
+    justify-items: center;
+    font-size: 22px;
+    margin: 20px 0 10px 0;
+    color: var(--text-color);
+  }
+
+  .faucet {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: flex-start;
+  }
 }
 
-.count {
-  display: grid;
-  justify-items: center;
-  font-size: 22px;
-  margin: 20px 0 10px 0;
-  color: var(--text-color);
-}
-
-.faucet {
-  display: flex;
-  justify-content: center;
-}
 </style>
