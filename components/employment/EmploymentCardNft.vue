@@ -14,13 +14,13 @@
       </div>
     </template>
     <template #button>
-      <v-btn v-if="!nft.isStaked" :loading="loaderStake" @click="stake(nft.id)" color="primary">
+      <v-btn v-if="!nft.isStaked" :loading="loaderStake" @click="stake(nft.id)" color="var(--main-green)">
         stake #{{nft.id }}
       </v-btn>
-      <v-btn v-if="nft.isStaked" :loading="loaderUnstake" @click="unStake(nft.id)" color="primary">
+      <v-btn v-if="nft.isStaked" :loading="loaderUnstake" @click="unStake(nft.id)" color="var(--main-green)">
         UnStake #{{nft.id }}
       </v-btn>
-      <v-btn v-if="nft.isStaked" :loading="loaderClaim" @click="claimRewardsNFT(nft.id)" color="primary">
+      <v-btn v-if="nft.isStaked" :loading="loaderClaim" @click="claimRewardsNFT(nft.id)" color="var(--main-green)">
         Claim Rewards
       </v-btn>
     </template>

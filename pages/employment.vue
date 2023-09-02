@@ -37,7 +37,7 @@ let timer = ref(0);
 let countCard = ref(5);
 
 const showMore = () => {
-  countCard.value += 4;
+  countCard.value += 5;
 }
 </script>
 

@@ -50,7 +50,7 @@
   position: relative;
   z-index: 5;
   width: 600px;
-  margin: 40px auto;
+  margin: 60px auto;
 
   &__title {
     margin-bottom: 20px;
