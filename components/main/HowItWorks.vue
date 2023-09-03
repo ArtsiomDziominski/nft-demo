@@ -43,7 +43,7 @@
   padding: 100px 50px;
 
   h2 {
-    color: #89c51a;
+    color: var(--main-green);
     margin-bottom: 70px;
     font-size: 70px;
   }
@@ -57,18 +57,70 @@
     margin-bottom: 150px;
 
 
+
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      max-width: 45%;
+    }
+
+    .wrapper-number {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background-color: #0af9c43d;
+      z-index: -2;
+
+      .number-blocks {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        color: #2c2e31;
+        font-weight: 600;
+
+
+        &:before {
+          content: '';
+          position: absolute;
+          width: 20%;
+          height: 20%;
+          background: linear-gradient(60deg, rgb(146, 224, 14) 0%, rgb(5, 229, 252) 100%);
+          border-radius: 50%;
+          z-index: -1;
+          animation: spin linear 3s infinite;
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotate(0deg) scale(5);
+          }
+          to {
+            transform: rotate(360deg) scale(5);
+          }
+        }
+      }
+    }
+
     &:nth-child(3) {
       .wrapper-number {
-        .number-blocks {
-          &:before {
+          &:before,
+          &:after {
             content: '';
             position: absolute;
-            top: -280px;
+            top: -285px;
             width: 2px;
             height: 420px;
             border: none;
-            background-image: repeating-linear-gradient(181deg, #89c51a, #89c51a 30px, transparent 30px, transparent 51px, #89c51a 51px), repeating-linear-gradient(271deg, #89c51a, #89c51a 30px, transparent 30px, transparent 51px, #121212 51px), repeating-linear-gradient(1deg, #121212, #121212 30px, transparent 30px, transparent 51px, #121212 51px), repeating-linear-gradient(91deg, #121212, #121212 30px, transparent 30px, transparent 51px, #121212 51px);
-            background-size: 3px calc(100% + 51.01px), calc(100% + 51.01px) 3px, 3px calc(100% + 51.01px), calc(100% + 51.01px) 3px;
+            background-image: repeating-linear-gradient(181deg, rgb(113 221 70 / 35%), rgb(4, 232, 255) 25px, transparent 30px, transparent 51px);
+            background-size: 10px calc(100% + 51.01px), calc(100% + 51.01px) 3px, 3px calc(100% + 51.01px), calc(100% + 51.01px) 3px;
             background-position: 0 0, 0 0, 100% 0, 0 100%;
             background-repeat: no-repeat;
             animation: borderAnimation 2s infinite linear reverse;
@@ -84,55 +136,9 @@
           }
 
           &:after {
-            content: '';
-            position: absolute;
-            bottom: -280px;
-            width: 2px;
-            height: 420px;
-            border: none;
-            background-image: repeating-linear-gradient(181deg, #89c51a, #89c51a 30px, transparent 30px, transparent 51px, #89c51a 51px), repeating-linear-gradient(271deg, #89c51a, #89c51a 30px, transparent 30px, transparent 51px, #121212 51px), repeating-linear-gradient(1deg, #121212, #121212 30px, transparent 30px, transparent 51px, #121212 51px), repeating-linear-gradient(91deg, #121212, #121212 30px, transparent 30px, transparent 51px, #121212 51px);
-            background-size: 3px calc(100% + 51.01px), calc(100% + 51.01px) 3px, 3px calc(100% + 51.01px), calc(100% + 51.01px) 3px;
-            background-position: 0 0, 0 0, 100% 0, 0 100%;
-            background-repeat: no-repeat;
-            animation: borderAnimation 2s infinite linear reverse;
-
-            @keyframes borderAnimation {
-              from {
-                background-position: 0 0, -51.01px 0, 100% -51.01px, 0 100%;
-              }
-              to {
-                background-position: 0 -51.01px, 0 0, 100% 0, -51.01px 100%;
-              }
-            }
+            top: unset;
+            bottom: -285px;
           }
-        }
-      }
-    }
-
-    iframe {
-      width: 100%;
-      height: 350px;
-      max-width: 45%;
-    }
-
-    .wrapper-number {
-      width: 60px;
-      height: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      background-color: rgba(137, 197, 26, 0.2);
-
-      .number-blocks {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        color: var(--text-color);
-        background: linear-gradient(300deg, rgba(20, 38, 1, 0.9976365546218487) 0%, rgba(133, 207, 4, 1) 100%);
       }
     }
 

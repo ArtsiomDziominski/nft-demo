@@ -1,18 +1,25 @@
 <template>
   <div class="main-block">
     <div class="main-block__body">
-      <h1 class="main-block__title">
-        Buy NFT and start making passive income
-      </h1>
-      <CardNFT class="card" :is-minting="true">
-        <template #button>
-          <NuxtLink to="/mint">
-            <v-btn class="card__button" :color="mainGreen">
-              Mint
-            </v-btn>
-          </NuxtLink>
-        </template>
-      </CardNFT>
+      <div class="description-block">
+        <h1 class="main-block__title">
+          Buy NFT and start making passive income
+        </h1>
+        <p>Anthurium it is a company which integrated of innovative technologies that simplify and enhance the process
+          of earning while ensuring safety.</p>
+        <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up"></button>
+      </div>
+<!--      <canvas ref="canvas"/>-->
+
+      <!--      <CardNFT class="card" :is-minting="true">-->
+      <!--        <template #button>-->
+      <!--          <NuxtLink to="/mint">-->
+      <!--            <v-btn class="card__button" :color="mainGreen">-->
+      <!--              Mint-->
+      <!--            </v-btn>-->
+      <!--          </NuxtLink>-->
+      <!--        </template>-->
+      <!--      </CardNFT>-->
     </div>
     <MainGridImage/>
   </div>
@@ -21,8 +28,44 @@
 <script setup lang="ts">
 import MainGridImage from "~/components/main/MainGridImage";
 import CardNFT from "~/components/CardNFT";
+import {Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, SphereGeometry, WebGLRenderer} from "three"
+import {onMounted, Ref, ref} from "vue";
 
-const mainGreen = '#658d1b';
+const canvas: Ref<HTMLCanvasElement> = ref(null);
+const scene = new Scene();
+const width: number = 800;
+const height: number = 600;
+const camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
+camera.position.set(0, 0, 2)
+scene.add(camera)
+
+const sphere = new Mesh(
+    new SphereGeometry(1, 32, 32),
+    new MeshBasicMaterial({color: '#a6ff00'})
+)
+
+scene.add(sphere)
+
+
+let renderer
+
+onMounted(() => {
+  setRenderer();
+})
+
+function setRenderer() {
+  if (canvas.value) {
+    renderer = new WebGLRenderer({canvas: canvas.value});
+    updateRenderer();
+  }
+}
+
+function updateRenderer() {
+  renderer.setSize(width, height);
+  renderer.render(scene, camera)
+}
+
+
 </script>
 
 <style scoped lang="scss">
@@ -47,11 +90,28 @@ const mainGreen = '#658d1b';
     background-color: rgba(0, 0, 255, 0);
     z-index: 10;
 
-    .main-block__title {
-      width: 50%;
-      font-size: 52px;
-      margin-right: 10%;
+    .description-block {
+      max-width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
 
+      .main-block__title {
+        font-size: 52px;
+        margin: 0 0 30px 0;
+        background: -webkit-linear-gradient(var(--main-green), #04E8FFFF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      p {
+        font-size: 25px;
+        font-weight: 600;
+      }
+
+      .main-button {
+        width: 250px;
+      }
     }
 
     .card {

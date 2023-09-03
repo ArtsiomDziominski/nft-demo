@@ -104,7 +104,7 @@ section {
       }
 
       p {
-        color: #dadada;
+        color: var(--hover-card-history);
       }
     }
 

@@ -1,0 +1,20 @@
+.main-button {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background: var(--background-main-button);
+  font-weight: 700;
+  color: #2c2e31;
+  transition: all 0.2s;
+
+  img {
+    width: 24px;
+  }
+
+  &:hover {
+    box-shadow: 0 0 15px #4ee481;
+  }
+}

@@ -10,7 +10,8 @@ $card-bg-secondary: #202124;
 $border-stroke-on-card: #ffffff1a;
 $background-minting: rgba(187, 184, 184, 0.24);
 $blue-light: #2196F3;
-$green:#658d1b;
+$green: #a6ff00;
+$background-main-button: linear-gradient(80deg, rgba(146, 224, 14, 1) 0%, rgba(4, 232, 255, 1) 100%);
 
 :root {
   --text-color: #{$text};
@@ -24,4 +25,5 @@ $green:#658d1b;
   --hover-card-box-shadow: rgba(60, 64, 67, 0.3) 0 1px 2px 0, rgba(60, 64, 67, 0.15) 0 2px 6px 2px;
   --background-minting: #{$background-minting};
   --link-hover: #{$blue-light};
+  --background-main-button: #{$background-main-button};
 }

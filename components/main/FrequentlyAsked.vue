@@ -2,29 +2,28 @@
   <div class="wrapper-frequently">
     <div class="frequently">
       <div class="frequently-description">
-        <h2>Frequently Asked Questions</h2>
-        <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+        <h2 data-aos="fade-right" data-aos-delay="40">Frequently Asked Questions</h2>
+        <p data-aos="fade-right" data-aos-delay="40">Many desktop publishing packages and web page editors now use Lorem
+          Ipsum as their default model text, and a
           search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved
-          over
-          the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+
         </p>
-        <div class="wrapper-image-frequently">
+        <div class="wrapper-image-frequently" data-aos="fade-right" data-aos-delay="60">
           <img src="~/assets/images/frequently-asked/ai-main-image.jpeg" alt="main image for asked">
         </div>
       </div>
       <div class="frequently-asked">
-        <v-expansion-panels>
-          <v-expansion-panel v-for="item in 6">
-            <v-expansion-panel-title expand-icon="mdi-plus" collapse-icon="mdi-minus">
-              Item
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat.
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
+        <div class="wrapper-fs" v-for="(item, index) in 5" data-aos="fade-left" :data-aos-delay="`${20 * index}`">
+          <v-expansion-panels>
+            <v-expansion-panel
+
+                title="Title"
+                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
+            >
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </div>
+
       </div>
     </div>
   </div>
@@ -38,6 +37,7 @@
 .wrapper-frequently {
   display: flex;
   justify-content: center;
+  padding: 0 50px;
 
   .frequently {
     width: 100%;
@@ -52,7 +52,7 @@
       gap: 30px;
 
       h2 {
-        color: #89c51a;
+        color: var(--main-green);
         font-size: 60px;
         line-height: 1;
         margin-bottom: 15px;
@@ -63,24 +63,25 @@
       }
 
       .wrapper-image-frequently {
+        height: 50%;
         position: relative;
-        padding: 5px;
+        padding: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
         background-color: transparent;
-        border-radius: calc(20px + 5px);
+        border-radius: calc(20px + 2px);
 
         &:before {
           content: '';
           position: absolute;
           display: block;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(295deg, rgba(0, 0, 0, 0.9976365546218487) 20%, rgba(159, 246, 7, 1) 100%);
+          width: 25%;
+          height: 50%;
+          background: linear-gradient(80deg, rgba(146, 224, 14, 1) 0%, rgba(4, 232, 255, 1) 100%);
           z-index: -1;
-          animation: spin linear 4s infinite;
+          animation: spin linear 5s infinite;
         }
 
         @keyframes spin {
@@ -93,16 +94,45 @@
         }
 
         img {
+          height: 100%;
           width: 100%;
           animation: unset;
           border-radius: 20px;
+          object-fit: cover;
         }
       }
     }
 
     &-asked {
-      width: 40%;
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 25px;
+
+      .wrapper-fs {
+        background: linear-gradient(80deg, rgba(146, 224, 14, 1) 0%, rgba(4, 232, 255, 1) 100%);
+        padding: 1px;
+        border-radius: 5px;
+      }
     }
   }
 }
+
+:deep(.v-expansion-panels) {
+  //margin: 20px 0 7px 0;
+
+}
+
+:deep(.v-expansion-panels .v-expansion-panel) {
+  background: var(--background-card);
+  color: var(--text-color);
+
+  .mdi-chevron-down,
+  .mdi-chevron-up {
+    color: #04E8FFFF;
+  }
+}
+
+
 </style>
