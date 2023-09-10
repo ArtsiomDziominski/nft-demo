@@ -1,0 +1,11 @@
+Model Information:
+* title:	LowPoly Cardboard Box
+* source:	https://sketchfab.com/3d-models/lowpoly-cardboard-box-f2b1e7d7d4cc4a699a969a3e0fe8d211
+* author:	PolyProps3D (https://sketchfab.com/PolyProps3D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "LowPoly Cardboard Box" (https://sketchfab.com/3d-models/lowpoly-cardboard-box-f2b1e7d7d4cc4a699a969a3e0fe8d211) by PolyProps3D (https://sketchfab.com/PolyProps3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

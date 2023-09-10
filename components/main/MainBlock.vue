@@ -9,7 +9,9 @@
           of earning while ensuring safety.</p>
         <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up"></button>
       </div>
-<!--      <canvas ref="canvas"/>-->
+      <div class="wrapper-canvas" ref="wrapperCanvas">
+        <canvas ref="canvas"/>
+      </div>
 
       <!--      <CardNFT class="card" :is-minting="true">-->
       <!--        <template #button>-->
@@ -28,34 +30,118 @@
 <script setup lang="ts">
 import MainGridImage from "~/components/main/MainGridImage";
 import CardNFT from "~/components/CardNFT";
-import {Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, SphereGeometry, WebGLRenderer} from "three"
+import {
+  BoxGeometry,
+  Color, DirectionalLight,
+  Fog,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  TextureLoader,
+  WebGLRenderer,
+} from "three"
 import {onMounted, Ref, ref} from "vue";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 const canvas: Ref<HTMLCanvasElement> = ref(null);
+const bgColor = new Color('#121212')
 const scene = new Scene();
-const width: number = 800;
-const height: number = 600;
-const camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
-camera.position.set(0, 0, 2)
-scene.add(camera)
+scene.fog = new Fog(bgColor, 0.1, 75);
+scene.background = bgColor;
 
-const sphere = new Mesh(
-    new SphereGeometry(1, 32, 32),
-    new MeshBasicMaterial({color: '#a6ff00'})
-)
+const wrapperCanvas = ref(null);
 
-scene.add(sphere)
+const light = new DirectionalLight(0xffffff, 2);
+light.position.set(5, 5, 5);
+light.shadow.camera.top = 2;
+light.shadow.camera.bottom = -2;
+light.shadow.camera.left = -2;
+light.shadow.camera.right = 2;
+light.shadow.camera.near = 0.1;
+light.shadow.camera.far = 40;
+light.castShadow = true; // default false
+light.shadow.mapSize.width = 1024;
+light.shadow.mapSize.height = 1024;
+light.receiveShadow = true;
+scene.add(light);
 
-
+let textureLoader = new TextureLoader();
 let renderer
+let controls
+let cube
+let camera
+let width
+let height
+
+const size = 800;
+
+// const gridHelper = new GridHelper( size, divisions );
+// scene.add( gridHelper );
 
 onMounted(() => {
+  width = wrapperCanvas.value.clientWidth
+  height = wrapperCanvas.value.clientHeight
+  camera = new PerspectiveCamera(75, width / height, 0.3, 1000);
+  camera.position.set(0, 0, 3)
+  scene.add(camera)
   setRenderer();
+  loop()
+  animate();
 })
+
+const loop = () => {
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(loop)
+}
+
+const animate = () => {
+  requestAnimationFrame(animate);
+  cube.rotation.x += 0.002;
+  cube.rotation.y += 0.002;
+  renderer.render(scene, camera);
+};
 
 function setRenderer() {
   if (canvas.value) {
-    renderer = new WebGLRenderer({canvas: canvas.value});
+    renderer = new WebGLRenderer({canvas: canvas.value, alpha: true});
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio * 4)
+    renderer.shadowMap.enabled = true;
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.enableZoom = false;
+    const geometry = new BoxGeometry(1.5, 1.5, 1.5);
+    const materials = [
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft-2.webp')
+      }),
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft.webp')
+      }),
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft-2.webp')
+      }),
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft-2.webp')
+      }),
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft.webp')
+      }),
+      new MeshBasicMaterial({
+        map: textureLoader.load('box/nft-2.webp')
+      })
+    ];
+
+    cube = new Mesh(geometry, materials);
+    cube.castShadow = true;
+    cube.receiveShadow = true;
+    scene.add(cube);
+
+    // const helper = new CameraHelper( light.shadow.camera );
+    // scene.add( helper );
     updateRenderer();
   }
 }
@@ -65,8 +151,8 @@ function updateRenderer() {
   renderer.render(scene, camera)
 }
 
-
 </script>
+
 
 <style scoped lang="scss">
 .main-block {
@@ -84,14 +170,14 @@ function updateRenderer() {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 50px;
+    padding: 50px 0 50px 50px;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 255, 0);
     z-index: 10;
 
     .description-block {
-      max-width: 50%;
+      max-width: 40%;
       display: flex;
       flex-direction: column;
       gap: 50px;
@@ -112,6 +198,12 @@ function updateRenderer() {
       .main-button {
         width: 250px;
       }
+    }
+
+    .wrapper-canvas {
+      width: 60%;
+      height: 100%;
+      min-height: 100vh;
     }
 
     .card {
