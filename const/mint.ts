@@ -1,4 +1,4 @@
-export const ADDRESS: string = "0x3BB37cD8fD9a39353CEC45eFC96A34af5ac1C5C3";
+export const ADDRESS: string = "0xDEd777a2DB398dFB7c9F8E84fF2188D7e81d007e";
 export const ABI = [
     {
         "inputs": [],
@@ -83,7 +83,7 @@ export const ABI = [
         ],
         "name": "claimRewards",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -857,6 +857,25 @@ export const ABI = [
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_owner",
+                "type": "address"
+            }
+        ],
+        "name": "walletOfOwner",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
             }
         ],
         "stateMutability": "view",
