@@ -1,4 +1,4 @@
-export const ADDRESS: string = "0x81a2C368fB450E03dc78500966032671f6544C1f";
+export const ADDRESS: string = "0xC8758CCA281559c610C73E26621AdF1093404be5";
 export const ABI = [
     {
         "inputs": [],
@@ -100,16 +100,10 @@ export const ABI = [
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_mintAmount",
-                "type": "uint256"
-            }
-        ],
+        "inputs": [],
         "name": "mintWhite",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -687,6 +681,19 @@ export const ABI = [
     {
         "inputs": [],
         "name": "rewardSecond",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "startTime",
         "outputs": [
             {
                 "internalType": "uint256",
