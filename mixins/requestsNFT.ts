@@ -3,6 +3,8 @@ import {Web3} from "web3";
 import {ABI, ADDRESS} from "~/const/mint";
 import {ref, Ref, onMounted, UnwrapRef} from "vue";
 import requests from "./requests";
+import {ImageNFT, ImageNFTStorage} from "../const/const";
+import {storeToRefs} from "pinia";
 
 export default function requestsNFT() {
     const store = userStore();
@@ -10,10 +12,11 @@ export default function requestsNFT() {
         user,
         changeWallet,
         changeCountNFT,
-        addUsersNFT,
         cleanUsersNFT,
-        usersNFT
+        usersNFT,
+        addUsersNFT
     } = store;
+    let {loaderGetNft} = storeToRefs(store);
     const {getParamsNFT} = requests();
     let contract: any = null;
     let web3: any = null;
@@ -22,6 +25,8 @@ export default function requestsNFT() {
 
     let loaderStake: Ref<UnwrapRef<boolean>> = ref(false);
     let loaderUnstake: Ref<UnwrapRef<boolean>> = ref(false);
+    const nftIdList = ref([]);
+    const nftIdListStaked = ref([]);
 
     onMounted(async () => {
         // @ts-ignore
@@ -61,10 +66,42 @@ export default function requestsNFT() {
             changeCountNFT(Number(await contract.methods.balanceOf(walletAddress).call()))
             await getTotalNFT();
             await rewardSecond();
-            getNftList();
-            getNftListStake();
+            await setNftUser();
         } catch (_) {}
         return Number(user.countNFT);
+    }
+
+    async function setNftUser() {
+        loaderGetNft.value = true;
+        await getNftList();
+        await getNftListStake();
+
+        nftIdList.value.forEach((nft: any) => {
+            getParamsNFT(Number(nft)).then((res) => {
+                const NFTParams = res.data;
+                const NFT = {
+                    id: Number(nft),
+                    isStaked: false,
+                    ...NFTParams,
+                    image: ImageNFTStorage.nft === NFTParams.image ? ImageNFT.nft : ImageNFT.nft2
+                }
+                addUsersNFT(NFT);
+            });
+        })
+
+        nftIdListStaked.value.forEach((nft: any) => {
+            getParamsNFT(Number(nft)).then((res) => {
+                const NFTParams = res.data;
+                const NFT = {
+                    id: Number(nft),
+                    isStaked: true,
+                    ...NFTParams,
+                    image: ImageNFTStorage.nft === NFTParams.image ? ImageNFT.nft : ImageNFT.nft2
+                }
+                addUsersNFT(NFT);
+            });
+        })
+        loaderGetNft.value = false;
     }
 
     async function getAddressWallet() {
@@ -84,24 +121,13 @@ export default function requestsNFT() {
     }
 
     async function getNftList(): Promise<void> {
-        for (let i = 1; i <= totalNFT.value!; i++) {
-            await contract.methods.ownerOf(String(i)).call()
-                .then((ownerAddress: string) => {
-                    if (ownerAddress.toLowerCase() === user.wallet!.toLowerCase()) addUsersNFT({id: i, isStaked: false})
-                })
-        }
+        const walletAddress = await getAddressWallet();
+        nftIdList.value = await contract.methods.walletOfOwner(walletAddress).call();
     }
 
     async function getNftListStake(): Promise<void> {
-        for (let i = 1; i <= totalNFT.value!; i++) {
-            await contract.methods.nftOwnerStake(String(i)).call()
-                .then((ownerAddressStake: string) => {
-                    if (ownerAddressStake.toLowerCase() === user.wallet!.toLowerCase()) addUsersNFT({
-                        id: i,
-                        isStaked: true
-                    })
-                });
-        }
+        const walletAddress = await getAddressWallet();
+        nftIdListStaked.value = await contract.methods.walletOfOwnerStake(walletAddress).call();
     }
 
     async function stake(idNft: number): Promise<void> {
