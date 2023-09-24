@@ -35,9 +35,9 @@ import {
   Color, DirectionalLight,
   Fog,
   Mesh,
-  MeshBasicMaterial, MeshPhongMaterial,
+  MeshBasicMaterial,
   PerspectiveCamera,
-  Scene, sRGBEncoding,
+  Scene,
   TextureLoader,
   WebGLRenderer,
 } from "three"
