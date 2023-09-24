@@ -17,30 +17,18 @@ export const userStore = defineStore('userStore', () => {
     let usersNFT: Ref<IUserNFT[]> = ref([]);
     const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0});
     let isMainLoader = ref(true);
+    let loaderGetNft = ref(false);
 
     function changeWallet(address: string): void {
         user.value.wallet = address;
     }
 
     function changeCountNFT(amount: number): void {
-        user.value.countNFTTotal = amount
+        user.value.countNFTTotal = amount;
     }
 
-    async function addUsersNFT(nft: { id: number, isStaked: boolean }): void {
-        let NFT = nft;
-
-        await getParamsNFT(nft.id).then((res) => {
-            const NFTParams = res.data;
-            NFT = {
-            ...nft,
-            ...NFTParams,
-                image: ImageNFTStorage.nft === NFTParams.image ? ImageNFT.nft : ImageNFT.nft2
-            }
-        });
-        // @ts-ignore
-        usersNFT.value.push(NFT);
-
-
+    async function addUsersNFT(nft): Promise<void> {
+        usersNFT.value.push(nft);
     }
 
     function cleanUsersNFT(): void {
@@ -63,9 +51,10 @@ export const userStore = defineStore('userStore', () => {
         changeCountNFT,
         userBase,
         usersNFT,
-        addUsersNFT,
         cleanUsersNFT,
         cleanUserStore,
-        isMainLoader
+        isMainLoader,
+        loaderGetNft,
+        addUsersNFT
     }
 })
