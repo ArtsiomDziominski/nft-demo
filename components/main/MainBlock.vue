@@ -43,7 +43,7 @@ import {
 } from "three"
 import {onMounted, Ref, ref} from "vue";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
-import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+// import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const canvas: Ref<HTMLCanvasElement> = ref(null);
