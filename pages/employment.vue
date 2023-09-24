@@ -3,6 +3,7 @@
     <MLoader v-if="isMainLoader"/>
     <div v-else class="employment">
       <HeaderConnectWallet v-if="!user.wallet"/>
+      <MLoader v-else-if="loaderGetNft"/>
       <template v-else>
         <EmploymentCardNft
             v-for="nft in usersNFT.slice(0, countCard)"
@@ -16,25 +17,28 @@
 </template>
 
 <script setup lang="ts">
-import {Ref, ref} from "vue";
+import {onMounted, Ref, ref} from "vue";
 import {userStore} from "~/store/userStore";
 import {storeToRefs} from 'pinia'
-import wallet from "~/mixins/wallet";
 import requestsNFT from "~/mixins/requestsNFT";
 import EmploymentCardNft from "../components/employment/EmploymentCardNft.vue";
 
-const {connectMetamask} = wallet();
-const {getUserNFT, rewardSecond} = requestsNFT();
+const {getUserNFT} = requestsNFT();
 const store = userStore();
-const {user, usersNFT, isMainLoader} = storeToRefs(store)
+const {user, usersNFT, isMainLoader, loaderGetNft} = storeToRefs(store)
 
 let ethereum = null;
 let web3 = null;
 let contract = null;
-let balance: Ref<number> = ref(0);
 
 let timer = ref(0);
 let countCard = ref(5);
+
+onMounted(async () => {
+  isMainLoader.value = true;
+  await getUserNFT();
+  isMainLoader.value = false;
+})
 
 const showMore = () => {
   countCard.value += 5;

@@ -15,7 +15,7 @@
       </template>
     </CardNFT>
     <div class="faucet">
-      <a href="https://faucet.polygon.technology/" target="_blank">
+      <a href="https://mumbaifaucet.com/" target="_blank">
         <v-btn variant="text" color="var(--main-green)">
           Faucet
         </v-btn>
