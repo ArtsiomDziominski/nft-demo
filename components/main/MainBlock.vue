@@ -44,6 +44,7 @@ import {
 import {onMounted, Ref, ref} from "vue";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const canvas: Ref<HTMLCanvasElement> = ref(null);
 const bgColor = new Color('#121212')
@@ -51,9 +52,7 @@ const scene = new Scene();
 scene.fog = new Fog(bgColor, 0.1, 75);
 scene.background = bgColor;
 
-
 const wrapperCanvas = ref(null);
-
 
 const light = new DirectionalLight(0xffffff, 2);
 light.position.set(5, 5, 5);
