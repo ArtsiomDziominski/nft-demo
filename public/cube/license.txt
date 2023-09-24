@@ -1,0 +1,11 @@
+Model Information:
+* title:	Infinity Cube
+* source:	https://sketchfab.com/3d-models/infinity-cube-fd88805d36a6407ca8d770559d8abdaa
+* author:	eb.4975 (https://sketchfab.com/eb.4975)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Infinity Cube" (https://sketchfab.com/3d-models/infinity-cube-fd88805d36a6407ca8d770559d8abdaa) by eb.4975 (https://sketchfab.com/eb.4975) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

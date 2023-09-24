@@ -23,7 +23,7 @@
       <!--        </template>-->
       <!--      </CardNFT>-->
     </div>
-    <MainGridImage/>
+<!--    <MainGridImage/>-->
   </div>
 </template>
 
@@ -31,18 +31,19 @@
 import MainGridImage from "~/components/main/MainGridImage";
 import CardNFT from "~/components/CardNFT";
 import {
-  BoxGeometry,
+  BoxGeometry, CameraHelper,
   Color, DirectionalLight,
   Fog,
   Mesh,
-  MeshBasicMaterial,
+  MeshBasicMaterial, MeshPhongMaterial,
   PerspectiveCamera,
-  Scene,
+  Scene, sRGBEncoding,
   TextureLoader,
   WebGLRenderer,
 } from "three"
 import {onMounted, Ref, ref} from "vue";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
+import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
 const canvas: Ref<HTMLCanvasElement> = ref(null);
 const bgColor = new Color('#121212')
@@ -50,7 +51,9 @@ const scene = new Scene();
 scene.fog = new Fog(bgColor, 0.1, 75);
 scene.background = bgColor;
 
+
 const wrapperCanvas = ref(null);
+
 
 const light = new DirectionalLight(0xffffff, 2);
 light.position.set(5, 5, 5);
@@ -76,8 +79,30 @@ let height
 
 const size = 800;
 
+
 // const gridHelper = new GridHelper( size, divisions );
 // scene.add( gridHelper );
+
+const glfLoader = new GLTFLoader();
+glfLoader.load('/cube/scene.gltf', (gltf) => {
+  const model = gltf.scene;
+  gltf.scene.traverse(function (child) {
+    if (child.isMesh) {
+      child.castShadow = true;
+      child.receiveShadow = true;
+      // child.material = new MeshPhongMaterial({
+      //   map: map,
+      //   color: '#a6ff00',
+      // });
+      console.log(child)
+    }
+  })
+
+  cube = gltf
+
+  scene.add(model);
+
+})
 
 onMounted(() => {
   width = wrapperCanvas.value.clientWidth
@@ -98,8 +123,8 @@ const loop = () => {
 
 const animate = () => {
   requestAnimationFrame(animate);
-  cube.rotation.x += 0.002;
-  cube.rotation.y += 0.002;
+  // cube.rotation.x += 0.002;
+  // cube.rotation.y += 0.002;
   renderer.render(scene, camera);
 };
 
@@ -114,34 +139,51 @@ function setRenderer() {
     controls.enableDamping = true;
     controls.enableZoom = false;
     const geometry = new BoxGeometry(1.5, 1.5, 1.5);
-    const materials = [
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft-2.webp')
-      }),
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft.webp')
-      }),
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft-2.webp')
-      }),
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft-2.webp')
-      }),
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft.webp')
-      }),
-      new MeshBasicMaterial({
-        map: textureLoader.load('box/nft-2.webp')
-      })
-    ];
+    // const materials = [
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    //   new MeshBasicMaterial({
+    //     color: '#658d1b',
+    //     transparent: false,
+    //     opacity: 0.2
+    //   }),
+    // ];
 
-    cube = new Mesh(geometry, materials);
-    cube.castShadow = true;
-    cube.receiveShadow = true;
-    scene.add(cube);
+    cube = new Mesh(geometry, new MeshBasicMaterial({
+      color: '#658d1b',
+      transparent: false,
+      opacity: 1
+    }));
+    // cube.castShadow = true;
+    // cube.receiveShadow = true;
+    // scene.add(cube);
 
-    // const helper = new CameraHelper( light.shadow.camera );
-    // scene.add( helper );
+
+    // const helper = new CameraHelper(light.shadow.camera);
+    // scene.add(helper);
     updateRenderer();
   }
 }
