@@ -1,5 +1,6 @@
 <template>
   <div class="main-block">
+    <img class="background" src="~/assets/images/hero-gradient.svg" alt="">
     <div class="main-block__body">
       <div class="description-block">
         <h1 class="main-block__title">
@@ -10,7 +11,12 @@
         <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up"></button>
       </div>
     </div>
-<!--    <MainGridImage/>-->
+    <div class="wrap">
+      <div class="c" v-for="count in 500"></div>
+    </div>
+
+<!--    </div>-->
+    <!--    <MainGridImage/>-->
   </div>
 </template>
 
@@ -21,11 +27,81 @@
 
 <style scoped lang="scss">
 .main-block {
+  display: flex;
   position: relative;
   height: 100%;
   min-height: calc(100vh - 56px);
   width: 100vw;
   overflow: hidden;
+
+  .background {
+    position: absolute;
+    width: 120%;
+    right: 0;
+    top: -25%;
+    opacity: 0.2;
+  }
+
+  // best in chrome
+  $total: 500; // total particles
+  $orb-size: 250px;
+  $particle-size: 2px;
+  $time: 20s;
+  $base-hue: 84; // change for diff colors (180 is nice)
+
+  .wrap {
+    position: absolute;
+    top: 47%;
+    right: 30%;
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    animation: rotate $time infinite linear; // rotate orb
+    z-index: 10;
+  }
+
+  @keyframes rotate {
+    100% {
+      transform: rotateY(360deg) rotateX(360deg);
+    }
+  }
+
+  .c {
+    position: absolute;
+    width: $particle-size;
+    height: $particle-size;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  @for $i from 1 through $total {
+    $z: (random(360) * 1deg); // random angle to rotateZ
+    $y: (random(360) * 1deg); // random to rotateX
+    $hue: ((40/$total * $i) + $base-hue); // set hue
+
+    .c:nth-child(#{$i}){ // grab the nth particle
+      animation: orbit#{$i} $time infinite;
+      animation-delay: ($i * .01s);
+      background-color: hsla($hue, 100%, 50%, 1);
+    }
+
+    @keyframes orbit#{$i}{
+      20% {
+        opacity: 1; // fade in
+      }
+      30% {
+        transform: rotateZ(-$z) rotateY($y) translateX($orb-size) rotateZ($z); // form orb
+      }
+      80% {
+        transform: rotateZ(-$z) rotateY($y) translateX($orb-size) rotateZ($z); // hold orb state 30-80
+        opacity: 1; // hold opacity 20-80
+      }
+      100% {
+        transform: rotateZ(-$z) rotateY($y) translateX( ($orb-size * 3) ) rotateZ($z); // translateX * 3
+      }
+    }
+  }
 
   &__body {
     height: 100%;
@@ -36,10 +112,10 @@
     justify-content: flex-start;
     align-items: center;
     padding: 50px 0 50px 50px;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 255, 0);
-    z-index: 10;
+    //backdrop-filter: blur(5px);
+    //-webkit-backdrop-filter: blur(5px);
+    //background-color: rgba(0, 0, 255, 0);
+    //z-index: 10;
 
     .description-block {
       max-width: 40%;
