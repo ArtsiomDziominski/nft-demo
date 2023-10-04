@@ -32,10 +32,13 @@ import {Web3} from "web3";
 import {userStore} from "~/store/userStore";
 import {onMounted, Ref, ref, UnwrapRef} from "vue";
 import wallet from "~/mixins/wallet";
+import commonMixin from "~/mixins/common";
+import {SnackbarColor} from "../const/const";
 
 const store = userStore();
 const {user} = store;
 const {connectMetamask} = wallet();
+const {setSnackbar} = commonMixin();
 
 let ethereum = null;
 let web3 = null;
@@ -110,9 +113,13 @@ async function mintNft() {
   const walletCurrent = await getAddressWallet();
   await contract.methods.mint(mintAmount.value)
       .send({from: walletCurrent, value: "1000000000000000"})
-      .then(() => totalNFT.value += mintAmount.value)
+      .then(() => {
+        totalNFT.value += mintAmount.value;
+        setSnackbar('Minted');
+      })
       .catch(() => {
-        loaderBtn.value = false
+        loaderBtn.value = false;
+        setSnackbar('Error', true, SnackbarColor.Error);
       })
 }
 
