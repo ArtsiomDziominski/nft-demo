@@ -46,10 +46,12 @@
 import {ref} from "vue";
 import {CONNECT_WALLET} from "~/const/const";
 import wallet from "~/mixins/wallet";
+import commonMixin from "~/mixins/common";
 import {userStore} from "~/store/userStore";
 import {connectWalletHeaderButtons} from "~/const/buttons";
 
 const {connectMetamask} = wallet();
+const {setSnackbar} = commonMixin();
 const store = userStore();
 const {user} = store;
 
@@ -61,6 +63,7 @@ async function connectWallet() {
   } else {
     loaderConnectBtn.value = true;
     await connectMetamask();
+    setSnackbar('Connected wallet');
   }
   loaderConnectBtn.value = false;
 }

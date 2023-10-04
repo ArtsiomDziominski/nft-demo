@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
-import {Ref, ref, UnwrapRef} from "vue";
+import {Ref, ref} from "vue";
 import {reactive} from "@vue/reactivity";
 import {IUser, IUserNFT} from "../types/types";
 import requests from "../mixins/requests";
-import {ImageNFT, ImageNFTStorage} from "../const/const";
+import {SnackbarColor} from "../const/const";
 
 export const userStore = defineStore('userStore', () => {
     const {getParamsNFT} = requests();
@@ -18,6 +18,7 @@ export const userStore = defineStore('userStore', () => {
     const userBase = reactive({id: '', profitWeek: 0, profitMonth: 0, profitAll: 0});
     let isMainLoader = ref(true);
     let loaderGetNft = ref(false);
+    const snackbar = ref({is: false, text: '', color: SnackbarColor.Success});
 
     function changeWallet(address: string): void {
         user.value.wallet = address;
@@ -55,6 +56,7 @@ export const userStore = defineStore('userStore', () => {
         cleanUserStore,
         isMainLoader,
         loaderGetNft,
-        addUsersNFT
+        addUsersNFT,
+        snackbar
     }
 })

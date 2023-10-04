@@ -6,6 +6,7 @@
         <NuxtPage></NuxtPage>
       </main>
       <MainFooter/>
+      <AppSnackbar />
     </section>
   </NuxtLayout>
 </template>
@@ -15,6 +16,7 @@ import MainFooter from "~/components/footer/MainFooter.vue";
 import {onMounted} from "vue";
 import {storeToRefs} from "pinia";
 import {userStore} from "./store/userStore";
+import AppSnackbar from "~/components/AppSnackbar.vue";
 const store = userStore();
 const {isMainLoader} = storeToRefs(store);
 
