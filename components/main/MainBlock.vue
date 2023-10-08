@@ -40,12 +40,13 @@
     right: 0;
     top: -25%;
     opacity: 0.2;
+    z-index: 1;
   }
 
   // best in chrome
   $total: 500; // total particles
   $orb-size: 250px;
-  $particle-size: 2px;
+  $particle-size: 3px;
   $time: 20s;
   $base-hue: 84; // change for diff colors (180 is nice)
 
@@ -58,7 +59,7 @@
     transform-style: preserve-3d;
     perspective: 1000px;
     animation: rotate $time infinite linear; // rotate orb
-    z-index: 10;
+    z-index: 2;
   }
 
   @keyframes rotate {
@@ -112,10 +113,7 @@
     justify-content: flex-start;
     align-items: center;
     padding: 50px 0 50px 50px;
-    //backdrop-filter: blur(5px);
-    //-webkit-backdrop-filter: blur(5px);
-    //background-color: rgba(0, 0, 255, 0);
-    //z-index: 10;
+    z-index: 2;
 
     .description-block {
       max-width: 40%;

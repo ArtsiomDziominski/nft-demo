@@ -1,7 +1,7 @@
 <template>
   <div class="how-it-works">
     <h2 data-aos="fade-up" data-aos-delay="50">How It Works</h2>
-    <section class="wrapper-article" v-for="(item, index) in 3">
+    <section class="wrapper-article" v-for="(item, index) in steps">
       <iframe data-aos="fade-up" data-aos-delay="150" src="https://www.youtube.com/embed/sWxL3c9rvc4"
               title="YouTube video player"
               frameborder="0"
@@ -17,19 +17,33 @@
 
 
       <article data-aos="fade-up" data-aos-delay="100">
-        <p class="step">First step</p>
-        <h3>Buy NFT worker</h3>
-        <p class="article-text">
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-          literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-          College in Virginia,
-        </p>
+        <p class="step">{{ item.short_description }}</p>
+        <h3>{{ item.title }}</h3>
+        <p class="article-text">{{ item.text }}</p>
       </article>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+
+const steps = [
+  {
+    short_description: 'First step',
+    title: 'Buy NFT worker',
+    text: 'Step into our world; you\'re just one step away from minting your very own NFT and becoming an integral part of our company!'
+  },
+  {
+    short_description: 'Second step',
+    title: 'Commence working',
+    text: 'Let your NFT bot work its magic – just set it in motion and witness the results.'
+  },
+  {
+    short_description: 'Last step',
+    title: 'Harvest profits',
+    text: 'Your bot has garnered a reward for you; now, all it takes is one easy step to receive it.'
+  }
+]
 
 </script>
 
@@ -50,14 +64,12 @@
 
   .wrapper-article {
     position: relative;
+    width: 100%;
     max-width: 1440px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 150px;
-
-
-
 
     iframe {
       width: 100%;
@@ -163,6 +175,7 @@
 
       .article-text {
         line-height: 160%;
+        font-size: 20px;
       }
     }
 

@@ -3,34 +3,55 @@
     <div class="frequently">
       <div class="frequently-description">
         <h2 data-aos="fade-right" data-aos-delay="40">Frequently Asked Questions</h2>
-        <p data-aos="fade-right" data-aos-delay="40">Many desktop publishing packages and web page editors now use Lorem
-          Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved
-
+        <p data-aos="fade-right" data-aos-delay="40">
+          Uncover valuable insights about our product here; we trust this resource is beneficial. Should you have more
+          questions, you can find detailed information on our About Us page or within our Discord community.
         </p>
         <div class="wrapper-image-frequently" data-aos="fade-right" data-aos-delay="60">
           <img src="~/assets/images/frequently-asked/ai-main-image.jpeg" alt="main image for asked">
         </div>
       </div>
       <div class="frequently-asked">
-        <div class="wrapper-fs" v-for="(item, index) in 5" data-aos="fade-left" :data-aos-delay="`${20 * index}`">
+        <div class="wrapper-fs" v-for="(item, index) in asked" data-aos="fade-left" :data-aos-delay="`${20 * index}`">
           <v-expansion-panels>
             <v-expansion-panel
 
-                title="Title"
-                text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
+                :title="item.title"
+                :text="item.text"
             >
             </v-expansion-panel>
           </v-expansion-panels>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+const asked = [
+  {
+    title: 'How often can rewards be claim?',
+    text: 'Rewards can be claimed at any time, with the stamp commission being the responsibility of the NFT owner.'
+  },
+  {
+    title: 'How quickly does the robot start its work?',
+    text: 'On average, it takes around 2 hours to complete this process.'
+  },
+  {
+    title: 'Is it possible to sell NFTs while the bot is active?',
+    text: 'No, you are required to deactivate the bot prior to selling the NFT.'
+  },
+  {
+    title: 'What\'s the maximum work period for the bot?',
+    text: 'There are no time limits for the bot\'s operation; it works tirelessly.'
+  },
+  {
+    title: 'How can I access the latest information regarding the bot?',
+    text: 'Find all pertinent updates on our Discord or Twitter channels; we look forward to welcoming you there.'
+  }
 
+
+]
 </script>
 
 <style scoped lang="scss">
@@ -60,6 +81,7 @@
 
       p {
         color: var(--hover-card-history);
+        font-size: 17px;
       }
 
       .wrapper-image-frequently {
