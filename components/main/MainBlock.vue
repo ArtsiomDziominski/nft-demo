@@ -6,7 +6,7 @@
         <h1 class="main-block__title">
           Buy NFT and start making passive income
         </h1>
-        <p>Anthurium it is a company which integrated of innovative technologies that simplify and enhance the process
+        <p>Anturium it is a company which integrated of innovative technologies that simplify and enhance the process
           of earning while ensuring safety.</p>
         <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up"></button>
       </div>

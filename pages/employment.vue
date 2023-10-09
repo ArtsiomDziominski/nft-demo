@@ -12,7 +12,12 @@
         />
       </template>
     </div>
-    <v-btn v-if="countCard < usersNFT.length" @click="showMore">Show more</v-btn>
+    <v-btn
+        v-if="countCard < usersNFT.length"
+        color="var(--main-green)"
+        variant="outlined"
+        @click="showMore"
+    >Show more</v-btn>
   </div>
 </template>
 
@@ -32,7 +37,7 @@ let web3 = null;
 let contract = null;
 
 let timer = ref(0);
-let countCard = ref(5);
+let countCard = ref(4);
 
 onMounted(async () => {
   isMainLoader.value = true;
@@ -41,7 +46,7 @@ onMounted(async () => {
 })
 
 const showMore = () => {
-  countCard.value += 5;
+  countCard.value += 4;
 }
 </script>
 
@@ -59,6 +64,18 @@ const showMore = () => {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+
+    &__cards {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-content: stretch;
+      flex-wrap: wrap;
+      gap: 3.3%;
+
+      &_nft {
+      }
+    }
   }
 }
 

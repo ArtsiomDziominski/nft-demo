@@ -5,6 +5,7 @@ import {ref, Ref, onMounted, UnwrapRef} from "vue";
 import requests from "./requests";
 import {ImageNFT, ImageNFTStorage} from "../const/const";
 import {storeToRefs} from "pinia";
+import commonMixin from "~/mixins/common";
 
 export default function requestsNFT() {
     const store = userStore();
@@ -18,6 +19,7 @@ export default function requestsNFT() {
     } = store;
     let {loaderGetNft} = storeToRefs(store);
     const {getParamsNFT} = requests();
+    const {setSnackbar} = commonMixin();
     let contract: any = null;
     let web3: any = null;
     let ethereum: any = null;
@@ -140,7 +142,11 @@ export default function requestsNFT() {
                     }
                 });
                 loaderStake.value = false;
-            }).catch(() => loaderStake.value = false)
+                setSnackbar('Staked');
+            }).catch(() => {
+                loaderStake.value = false;
+                setSnackbar('Error');
+            })
     }
 
     async function unStake(idNft: number): Promise<void> {
@@ -152,13 +158,16 @@ export default function requestsNFT() {
                         nft.isStaked = !nft.isStaked
                     }
                 });
+                setSnackbar('Unstaked');
                 loaderUnstake.value = false;
-            }).catch(() => loaderUnstake.value = false);
+            }).catch(() => {
+                loaderUnstake.value = false;
+                setSnackbar('Error');
+            });
     }
 
     function claimRewards(id: number) {
         return contract.methods.claimRewards(id).send({from: user.wallet});
-
     }
 
     async function rewardSecond() {
@@ -201,5 +210,4 @@ export default function requestsNFT() {
         loaderStake,
         loaderUnstake
     }
-
 }

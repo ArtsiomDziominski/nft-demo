@@ -1,45 +1,86 @@
 <template>
-  <CardNFT
+  <!--  <CardNFT-->
+  <!--      class="employment__card"-->
+  <!--      :is-minting="false"-->
+  <!--      :key="nft.id"-->
+  <!--      :img="nft.image"-->
+  <!--      :isTooltip="true"-->
+  <!--      :name="nft.name"-->
+  <!--  >-->
+  <!--    <template #rewards v-if="nft.isStaked">-->
+  <!--      <div class="card">-->
+  <!--        <p v-if="rewardSecondUSDT" :class="`card__count card__count_${num}`" v-for="num in 4">+ {{ rewardSecondUSDT }}</p>-->
+  <!--        <p class="card__rewards">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>-->
+  <!--      </div>-->
+  <!--    </template>-->
+  <!--    <template #button>-->
+  <!--      <v-btn v-if="!nft.isStaked" :loading="loaderStake" @click="stake(nft.id)" color="var(&#45;&#45;main-green)">-->
+  <!--        stake #{{nft.id }}-->
+  <!--      </v-btn>-->
+  <!--      <v-btn v-if="nft.isStaked" :loading="loaderUnstake" @click="unStake(nft.id)" color="var(&#45;&#45;main-green)">-->
+  <!--        UnStake #{{nft.id }}-->
+  <!--      </v-btn>-->
+  <!--      <v-btn v-if="nft.isStaked" :loading="loaderClaim" @click="claimRewardsNFT(nft.id)" color="var(&#45;&#45;main-green)">-->
+  <!--        Claim Rewards-->
+  <!--      </v-btn>-->
+  <!--    </template>-->
+  <!--    <template #tooltip>-->
+  <!--      <p>{{nft.name}}</p>-->
+  <!--      <p>{{nft.description}}</p>-->
+  <!--      <p v-for="attributes in nft.attributes">{{attributes.trait_type}}: {{attributes.value}}</p>-->
+  <!--      <p v-if="nft.isStaked">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>-->
+  <!--    </template>-->
+  <!--  </CardNFT>-->
+
+  <AppCardNFTSecond
       class="employment__card"
       :is-minting="false"
       :key="nft.id"
       :img="nft.image"
       :isTooltip="true"
       :name="nft.name"
+      :isStaked="nft.isStaked"
+      :loaderUnstake="loaderUnstake"
+      :loaderClaim="loaderClaim"
+      @claimRewards="claimRewardsNFT(nft.id)"
+      @unstake="unStake(nft.id)"
   >
-    <template #rewards v-if="nft.isStaked">
-      <div class="card">
-        <p v-if="rewardSecondUSDT" :class="`card__count card__count_${num}`" v-for="num in 4">+ {{ rewardSecondUSDT }}</p>
-        <p class="card__rewards">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
+    <template #body>
+      <div class="card" v-if="nft.isStaked">
+        <p class="card__title">
+          Rewards
+          <v-progress-circular
+              v-if="loaderClaim"
+              class="card__title_progress"
+              color="primary"
+              model-value="20"
+              indeterminate
+              :size="14"
+              :width="2"
+          />
+        </p>
+        <p class="card__rewards">~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
+      </div>
+
+      <div v-else class="stake">
+        <v-btn
+            class="stake__btn"
+            color="var(--main-green)"
+            variant="outlined"
+            :loading="loaderStake"
+            @click="stake(nft.id)"
+        >Stake</v-btn>
       </div>
     </template>
-    <template #button>
-      <v-btn v-if="!nft.isStaked" :loading="loaderStake" @click="stake(nft.id)" color="var(--main-green)">
-        stake #{{nft.id }}
-      </v-btn>
-      <v-btn v-if="nft.isStaked" :loading="loaderUnstake" @click="unStake(nft.id)" color="var(--main-green)">
-        UnStake #{{nft.id }}
-      </v-btn>
-      <v-btn v-if="nft.isStaked" :loading="loaderClaim" @click="claimRewardsNFT(nft.id)" color="var(--main-green)">
-        Claim Rewards
-      </v-btn>
-    </template>
-    <template #tooltip>
-      <p>{{nft.name}}</p>
-      <p>{{nft.description}}</p>
-      <p v-for="attributes in nft.attributes">{{attributes.trait_type}}: {{attributes.value}}</p>
-      <p v-if="nft.isStaked">Rewards: ~ {{ rewardsUSDT.toFixed(6) }} USDT</p>
-    </template>
-  </CardNFT>
+  </AppCardNFTSecond>
 </template>
 
 <script setup lang="ts">
-import {defineProps, onMounted, reactive, Ref, ref, UnwrapRef} from "vue";
+import {defineProps, onMounted, Ref, ref, UnwrapRef} from "vue";
 import requestsNFT from "~/mixins/requestsNFT";
-import CardNFT from "~/components/CardNFT";
-import {ImageNFT, ImageNFTStorage, NAME} from "../../const/const";
 import {PropType} from "vue/dist/vue";
 import {IUserNFT} from "../../types/types";
+import commonMixin from "~/mixins/common";
 
 const {
   getRewards,
@@ -51,6 +92,7 @@ const {
   loaderStake,
   loaderUnstake
 } = requestsNFT();
+const {setSnackbar} = commonMixin();
 
 const props = defineProps({
   nft: Object as PropType<IUserNFT>,
@@ -86,6 +128,7 @@ const claimRewardsNFT = async (id: number) => {
       .then(() => {
         rewardsUSDT.value = 0;
         loaderClaim.value = false;
+        setSnackbar('Claim');
       })
       .catch(() => loaderClaim.value = false);
 }
@@ -128,6 +171,27 @@ const claimRewardsNFT = async (id: number) => {
 
       .card__rewards {
         color: var(--text-color);
+        font-size: 14px;
+      }
+
+      .card__title {
+        font-size: 12px;
+        color: var(--text-color-second);
+        margin: 17px 0 0;
+
+        &_progress {
+          margin: 0 0 4px 4px;
+        }
+      }
+    }
+
+    .stake {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      &__btn {
+        margin-top: 6px;
       }
     }
   }
