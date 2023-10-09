@@ -186,4 +186,14 @@ export default {
     box-shadow: rgba(52, 199, 123, 0) 0 0 0 0;
   }
 }
+
+@media only screen and (max-width: 1440px) {
+  .card-wrapper .card-nft {
+    width: 300px;
+
+    &__nft {
+      height: 50%;
+    }
+  }
+}
 </style>

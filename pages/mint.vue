@@ -1,19 +1,23 @@
 <template>
   <div class="card-wrapper">
-    <CardNFT :is-minting="true">
-      <template #button>
-        <div class="count">
-          <p v-if="totalNFT !== null">
-            {{ totalNFT }} out of {{ totalSupply }}
-          </p>
-          <MLoader v-else size="28"/>
-          <p v-if="costNFT" style="font-size: 14px; margin-top: 10px;">Price: {{costNFT}} MATIC</p>
+    <AppCardNFTSecond>
+      <template #body>
+        <div class="body">
+          <div class="count">
+            <p v-if="totalNFT !== null">
+              {{ totalNFT }} out of {{ totalSupply }}
+            </p>
+            <MLoader v-else size="28"/>
+            <p v-if="costNFT" style="font-size: 14px; margin-top: 10px;">Price: {{ costNFT }} MATIC</p>
+          </div>
+          <v-btn class="body__mint" :disabled="totalNFT === null" @click="mint" color="var(--main-green)"
+                 :loading="loaderBtn">
+            Mint
+          </v-btn>
         </div>
-        <v-btn :disabled="totalNFT === null" @click="mint" color="var(--main-green)" :loading="loaderBtn">
-          Mint
-        </v-btn>
       </template>
-    </CardNFT>
+    </AppCardNFTSecond>
+
     <div class="faucet">
       <a href="https://mumbaifaucet.com/" target="_blank">
         <v-btn variant="text" color="var(--main-green)">
@@ -25,7 +29,6 @@
 </template>
 
 <script setup lang="ts">
-import CardNFT from "~/components/CardNFT"
 import MLoader from "~/components/MLoader"
 import {ABI, ADDRESS} from "~/const/mint";
 import {Web3} from "web3";
@@ -34,6 +37,7 @@ import {onMounted, Ref, ref, UnwrapRef} from "vue";
 import wallet from "~/mixins/wallet";
 import commonMixin from "~/mixins/common";
 import {SnackbarColor} from "../const/const";
+import AppCardNFTSecond from "../components/AppCardNFTSecond.vue";
 
 const store = userStore();
 const {user} = store;
@@ -77,8 +81,8 @@ async function getTotal() {
   await contract.methods.totalNFT()
       .call()
       .then((total) => {
-      totalNFT.value = Number(total);
-  });
+        totalNFT.value = Number(total);
+      });
 }
 
 async function getTotalSupply() {
@@ -133,7 +137,8 @@ async function mint() {
       await connectMetamask();
       await mintNft();
     }
-  } catch (_) {}
+  } catch (_) {
+  }
   setTimeout(() => getTotal(), 5000);
   loaderBtn.value = false;
 }
@@ -145,21 +150,27 @@ async function mint() {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 60px;
+  padding: 30px;
 
-  .count {
-    display: grid;
-    justify-items: center;
-    font-size: 22px;
-    margin: 20px 0 10px 0;
-    color: var(--text-color);
-  }
+  .body {
+    .count {
+      display: grid;
+      justify-items: center;
+      font-size: 22px;
+      margin: 0 0 10px 0;
+      color: var(--text-color);
+    }
 
-  .faucet {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    align-self: flex-start;
+    .faucet {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      align-self: flex-start;
+    }
+
+    &__mint {
+      width: 100%;
+    }
   }
 }
 
