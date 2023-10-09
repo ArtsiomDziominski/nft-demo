@@ -30,6 +30,7 @@ export const userStore = defineStore('userStore', () => {
 
     async function addUsersNFT(nft): Promise<void> {
         usersNFT.value.push(nft);
+        usersNFT.value.sort((a, b) => a.id + b.id);
     }
 
     function cleanUsersNFT(): void {
