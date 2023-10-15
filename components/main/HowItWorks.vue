@@ -2,7 +2,7 @@
   <div class="how-it-works">
     <h2 data-aos="fade-up" data-aos-delay="50">How It Works</h2>
     <section class="wrapper-article" v-for="(item, index) in steps">
-      <div v-html="item.videoUrl"></div>
+      <div class="wrapper-video" v-html="item.videoUrl"></div>
 
       <div class="wrapper-number">
         <div class="number-blocks">
@@ -69,7 +69,7 @@ const steps = [
     align-items: center;
     margin-bottom: 150px;
 
-    iframe {
+    .wrapper-video {
       width: 100%;
       height: 350px;
       max-width: 45%;
