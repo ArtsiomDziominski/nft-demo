@@ -1,0 +1,12 @@
+*::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--background-minting);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--main-green);
+}
