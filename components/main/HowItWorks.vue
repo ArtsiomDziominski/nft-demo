@@ -2,12 +2,7 @@
   <div class="how-it-works">
     <h2 data-aos="fade-up" data-aos-delay="50">How It Works</h2>
     <section class="wrapper-article" v-for="(item, index) in steps">
-      <iframe data-aos="fade-up" data-aos-delay="150" src="https://www.youtube.com/embed/sWxL3c9rvc4"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-      </iframe>
+      <div v-html="item.videoUrl"></div>
 
       <div class="wrapper-number">
         <div class="number-blocks">
@@ -31,17 +26,20 @@ const steps = [
   {
     short_description: 'First step',
     title: 'Buy NFT worker',
-    text: 'Step into our world; you\'re just one step away from minting your very own NFT and becoming an integral part of our company!'
+    text: 'Step into our world. You\'re just one step away from minting your very own NFT and becoming an integral part of our company!',
+    videoUrl: '<iframe width="560" height="315" src="https://www.youtube.com/embed/zIMgxGt3szg?si=e5zJoQXRhkdfLsS7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
   },
   {
     short_description: 'Second step',
     title: 'Commence working',
-    text: 'Let your NFT bot work its magic – just set it in motion and witness the results.'
+    text: 'Let your NFT bot work its magic – just set it in motion and witness the results.',
+    videoUrl: '<iframe width="560" height="315" src="https://www.youtube.com/embed/CJvCYbuNEFk?si=Aw-yriv9Lpgh0mkF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
   },
   {
     short_description: 'Last step',
     title: 'Harvest profits',
-    text: 'Your bot has garnered a reward for you; now, all it takes is one easy step to receive it.'
+    text: 'Your bot has garnered a reward for you. Now, all it takes is one easy step to receive it.',
+    videoUrl: '<iframe width="560" height="315" src="https://www.youtube.com/embed/r1KSNh5v3YI?si=ebsMxAkJoxdbQmtu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
   }
 ]
 

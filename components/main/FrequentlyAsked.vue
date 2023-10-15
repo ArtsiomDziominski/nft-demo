@@ -4,7 +4,7 @@
       <div class="frequently-description">
         <h2 data-aos="fade-right" data-aos-delay="40">Frequently Asked Questions</h2>
         <p data-aos="fade-right" data-aos-delay="40">
-          Uncover valuable insights about our product here; we trust this resource is beneficial. Should you have more
+          Uncover valuable insights about our product here. We trust this resource is beneficial. Should you have more
           questions, you can find detailed information on our About Us page or within our Discord community.
         </p>
         <div class="wrapper-image-frequently" data-aos="fade-right" data-aos-delay="60">
@@ -43,11 +43,11 @@ const asked = [
   },
   {
     title: 'What\'s the maximum work period for the bot?',
-    text: 'There are no time limits for the bot\'s operation; it works tirelessly.'
+    text: 'There are no time limits for the bot\'s operation. It works tirelessly.'
   },
   {
     title: 'How can I access the latest information regarding the bot?',
-    text: 'Find all pertinent updates on our Discord or Twitter channels; we look forward to welcoming you there.'
+    text: 'Find all pertinent updates on our Discord or Twitter channels. We look forward to welcoming you there.'
   }
 
 
