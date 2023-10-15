@@ -2,27 +2,24 @@
   <div class="wrapper">
     <h1 class="title">{{ title }}</h1>
     <h2 class="description">{{ description }}</h2>
-    <CardNFT class="card" :is-minting="false">
-      <template #button>
-        <!--        <a :href="BUY_NFT" target="_blank">-->
-        <!--          <v-btn class="card__button">-->
-        <!--            Buy 1 ETH-->
-        <!--          </v-btn>-->
-        <!--        </a>-->
-        <NuxtLink to="https://testnets.opensea.io/collection/testtrucknft-38" target="_blank">
-          <v-btn class="card__button" color="var(--main-green)">
-            BUY
-          </v-btn>
-        </NuxtLink>
+    <AppCardNFTSecond class="card">
+      <template #body>
+        <div class="body">
+          <NuxtLink to="https://testnets.opensea.io/collection/testtrucknft-38" target="_blank">
+            <v-btn class="body__mint" color="var(--main-green)">
+              Buy
+            </v-btn>
+          </NuxtLink>
+        </div>
       </template>
-    </CardNFT>
+    </AppCardNFTSecond>
   </div>
 </template>
 
 <script setup lang="ts">
 
 import {description, title} from "~/const/content/buy";
-import {BUY_NFT} from "../const/href";
+import AppCardNFTSecond from "../components/AppCardNFTSecond.vue";
 </script>
 
 <style scoped lang="scss">
@@ -58,8 +55,11 @@ import {BUY_NFT} from "../const/href";
     justify-content: center;
     align-items: center;
 
-    &__button {
-      margin-top: 20px;
+    .body {
+      &__mint {
+        width: 320px;
+        margin-top: 20px;
+      }
     }
   }
 }
