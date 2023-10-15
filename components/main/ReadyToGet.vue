@@ -3,7 +3,11 @@
     <div class="ready">
       <h2>Ready To Start ?</h2>
       <p>Commence monetizing the potential of novel technologies.</p>
-      <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt=""></button>
+      <NuxtLink to="/mint">
+        <button class="main-button">
+          MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="">
+        </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -35,6 +39,10 @@
       width: 80%;
       height: 1px;
       background: var(--background-main-button);
+    }
+
+    .main-button {
+      width: 200px;
     }
 
     h2 {

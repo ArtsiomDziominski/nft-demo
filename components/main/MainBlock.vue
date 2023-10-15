@@ -8,14 +8,18 @@
         </h1>
         <p>Anturium it is a company which integrated of innovative technologies that simplify and enhance the process
           of earning while ensuring safety.</p>
-        <button class="main-button">MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up"></button>
+        <NuxtLink to="/mint">
+          <button class="main-button">
+            MINT NFT <img src="~/assets/images/ready-to-get/arrow.svg" alt="arrow up">
+          </button>
+        </NuxtLink>
       </div>
     </div>
     <div class="wrap">
       <div class="c" v-for="count in 500"></div>
     </div>
 
-<!--    </div>-->
+    <!--    </div>-->
     <!--    <MainGridImage/>-->
   </div>
 </template>
@@ -81,7 +85,7 @@
     $y: (random(360) * 1deg); // random to rotateX
     $hue: ((40/$total * $i) + $base-hue); // set hue
 
-    .c:nth-child(#{$i}){ // grab the nth particle
+    .c:nth-child(#{$i}) { // grab the nth particle
       animation: orbit#{$i} $time infinite;
       animation-delay: ($i * .01s);
       background-color: hsla($hue, 100%, 50%, 1);
@@ -99,7 +103,7 @@
         opacity: 1; // hold opacity 20-80
       }
       100% {
-        transform: rotateZ(-$z) rotateY($y) translateX( ($orb-size * 3) ) rotateZ($z); // translateX * 3
+        transform: rotateZ(-$z) rotateY($y) translateX(($orb-size * 3)) rotateZ($z); // translateX * 3
       }
     }
   }
