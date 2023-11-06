@@ -5,7 +5,7 @@
     <AppCardNFTSecond class="card" :img="img">
       <template #body>
         <div class="body">
-          <NuxtLink to="https://testnets.opensea.io/collection/anturiumtest" target="_blank">
+          <NuxtLink to="https://testnets.opensea.io/collection/anturium-test" target="_blank">
             <v-btn class="body__mint" color="var(--main-green)">
               Buy
             </v-btn>
