@@ -77,6 +77,7 @@ header {
   width: 100vw;
   position: fixed;
   top: 0;
+  left: 0;
   padding: 10px 30px 10px 20px;
   z-index: 100;
   display: flex;
