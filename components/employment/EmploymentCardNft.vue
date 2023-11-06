@@ -36,7 +36,7 @@
       class="employment__card"
       :is-minting="false"
       :key="nft.id"
-      :img="nft.image"
+      :img="`https://bafybeicvld6ubfwyzzpxg6ellg2ezutyb5kvmxdfp5qlc2vxwruc2miv74.ipfs.nftstorage.link/robot-${nft.id}.png`"
       :isTooltip="true"
       :name="nft.name"
       :isStaked="nft.isStaked"
