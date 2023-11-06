@@ -50,6 +50,15 @@ const setImg = (): void => {
   justify-content: center;
   align-content: center;
 
+  @media only screen and (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+
   .title {
     grid-column: 1/2;
     grid-row: 1/2;

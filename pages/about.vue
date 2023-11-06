@@ -49,8 +49,13 @@
 .about {
   position: relative;
   z-index: 5;
-  width: 600px;
+  max-width: 600px;
   margin: 60px auto;
+
+  @media only screen and (max-width: 800px) {
+    font-size: 12px;
+    padding: 0 20px;
+  }
 
   &__title {
     margin-bottom: 20px;
@@ -73,6 +78,10 @@
 
 .card-nft {
   background-color: transparent;
+
+  @media only screen and (max-width: 800px) {
+    display: none;
+  }
 
   &__left {
     position: absolute;
