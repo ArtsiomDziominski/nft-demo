@@ -1,6 +1,6 @@
 <template>
   <div class="card-wrapper">
-    <AppCardNFTSecond>
+    <AppCardNFTSecond :img="img">
       <template #body>
         <div class="body">
           <div class="count">
@@ -38,6 +38,7 @@ import wallet from "~/mixins/wallet";
 import commonMixin from "~/mixins/common";
 import {SnackbarColor} from "../const/const";
 import AppCardNFTSecond from "../components/AppCardNFTSecond.vue";
+import {onUnmounted} from "../.nuxt/imports";
 
 const store = userStore();
 const {user} = store;
@@ -54,6 +55,9 @@ let costNFT: Ref<UnwrapRef<number>> = ref(0);
 let mintAmount: Ref<UnwrapRef<number>> = ref(1);
 let loader: Ref<UnwrapRef<boolean>> = ref(true);
 let loaderBtn: Ref<UnwrapRef<boolean>> = ref(false);
+let img = ref(`https://bafybeicvld6ubfwyzzpxg6ellg2ezutyb5kvmxdfp5qlc2vxwruc2miv74.ipfs.nftstorage.link/robot-${1}.png`);
+let imgCount = ref(1);
+let imgInterval = ref(null);
 
 onMounted(async () => {
   if (process.client) {
@@ -67,6 +71,11 @@ onMounted(async () => {
     // await getAddressWallet();
   }
   await getTotal();
+  imgInterval.value = setInterval(() => setImg(), 2000);
+})
+
+onUnmounted(() => {
+  if (imgInterval.value) clearInterval(imgInterval.value);
 })
 
 function getContract() {
@@ -116,7 +125,7 @@ async function getAddressWallet() {
 async function mintNft() {
   const walletCurrent = await getAddressWallet();
   await contract.methods.mint(mintAmount.value)
-      .send({from: walletCurrent, value: "1000000000000000"})
+      .send({from: walletCurrent, value: "100000000000000000"})
       .then(() => {
         totalNFT.value += mintAmount.value;
         setSnackbar('Minted');
@@ -141,6 +150,11 @@ async function mint() {
   }
   setTimeout(() => getTotal(), 5000);
   loaderBtn.value = false;
+}
+
+const setImg = (): void => {
+  imgCount.value = imgCount.value > 3 ? 1 : imgCount.value + 1;
+  img.value = `https://bafybeicvld6ubfwyzzpxg6ellg2ezutyb5kvmxdfp5qlc2vxwruc2miv74.ipfs.nftstorage.link/robot-${imgCount.value}.png`
 }
 </script>
 

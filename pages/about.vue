@@ -33,10 +33,10 @@
   </div>
   <div class="card-nft">
     <div class="card-nft__left">
-      <CardNFT/>
+      <CardNFT img="https://bafybeicvld6ubfwyzzpxg6ellg2ezutyb5kvmxdfp5qlc2vxwruc2miv74.ipfs.nftstorage.link/robot-1.png"/>
     </div>
     <div class="card-nft__right">
-      <CardNFT/>
+      <CardNFT img="https://bafybeicvld6ubfwyzzpxg6ellg2ezutyb5kvmxdfp5qlc2vxwruc2miv74.ipfs.nftstorage.link/robot-2.png"/>
     </div>
   </div>
   <BackgroundStars/>

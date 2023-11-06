@@ -1,1 +1,1 @@
-export const BUY_NFT: string = 'https://testnets.opensea.io/collection/truck-testnet';
+export const BUY_NFT: string = 'https://testnets.opensea.io/collection/anturiumtest';

@@ -1,8 +1,7 @@
 <template>
   <div class="card-wrapper">
     <v-card class="card-nft">
-      <img v-if="img === ImageNFT.nft" class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
-      <img v-else class="card-nft__nft" src="../assets/images/nft-2.webp" alt="nft image">
+      <img class="card-nft__nft" :src="img" alt="nft image">
 
       <div class="card-nft__content content">
         <div class="content__header">

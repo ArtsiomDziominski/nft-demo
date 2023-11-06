@@ -1,8 +1,7 @@
 <template>
   <v-card class="card-nft">
     <div v-if="name" class="card-nft__title">{{ name }}</div>
-    <img v-if="img === ImageNFT.nft" class="card-nft__nft" src="../assets/images/nft.webp" alt="nft image">
-    <img v-else class="card-nft__nft" src="../assets/images/nft-2.webp" alt="nft image">
+    <img class="card-nft__nft" :src="img" alt="nft image">
     <div class="card-nft__minting" v-if="isMinting">
       <div></div>
       <span>Minting now</span>
