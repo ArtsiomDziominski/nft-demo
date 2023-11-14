@@ -57,3 +57,8 @@ export interface IUser {
     isConnectWallet: boolean;
     rewardSecond: string;
 }
+
+export interface INFTAttributes {
+    "trait_type": string,
+    "value": string
+}
