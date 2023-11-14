@@ -42,6 +42,7 @@
       :isStaked="nft.isStaked"
       :loaderUnstake="loaderUnstake"
       :loaderClaim="loaderClaim"
+      :attributes="nft.attributes"
       @claimRewards="claimRewardsNFT(nft.id)"
       @unstake="unStake(nft.id)"
   >

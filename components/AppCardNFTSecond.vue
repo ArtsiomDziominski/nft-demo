@@ -5,7 +5,18 @@
 
       <div class="card-nft__content content">
         <div class="content__header">
-          <div v-if="name" class="content__title">{{ name }}</div>
+          <div v-if="name" class="content__title">
+            {{ name }}
+            <v-tooltip class="tooltip">
+              <template v-slot:activator="{ props }">
+                <img v-bind="props" src="~/assets/images/info.svg" alt=""/>
+              </template>
+              <div class="tooltip__body" v-for="item in attributes">
+                <p>{{ item.trait_type }}:</p>
+                <p>{{ item.value }}</p>
+              </div>
+            </v-tooltip>
+          </div>
           <div class="content__minting" v-if="isStaked">
             <div></div>
             <span>Staking</span>
@@ -33,10 +44,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import {userStore} from "../store/userStore";
 import {storeToRefs} from "pinia";
 import {ImageNFT} from "../const/const";
+import {INFTAttributes} from "../types/types";
+import {PropType} from "vue/dist/vue";
 
 export default {
   name: "AppCardNFTSecond",
@@ -69,6 +82,11 @@ export default {
     },
     loaderClaim: {
       type: Boolean,
+      default: false,
+      required: false
+    },
+    attributes: {
+      type: Array as PropType<INFTAttributes[]>,
       default: false,
       required: false
     }
@@ -123,7 +141,14 @@ export default {
       }
 
       &__title {
+        display: flex;
+        align-items: center;
+        gap: 4px;
         color: var(--text-color);
+
+        img {
+          width: 16px;
+        }
       }
 
       &__minting {
@@ -151,7 +176,7 @@ export default {
 
   .card-second {
     width: 368px;
-    height: 476px;
+    height: 489px;
     position: absolute;
     top: 0;
     left: 0;
@@ -171,6 +196,15 @@ export default {
 
   .card-nft:hover + .card-second {
     z-index: 11;
+  }
+}
+
+.tooltip__body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  & p:first-child {
+    color: var(--text-color-second);
   }
 }
 
